@@ -9,10 +9,15 @@ import { router } from './routes/api.js'
 
 const app = express()
 
-app.use(cors())
+//app.use(cors())
 
 dotenv.config()
 
+
+// Able to pass body from form
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 
 const PORT = process.env.PORT || 5000;
@@ -20,6 +25,7 @@ const PORT = process.env.PORT || 5000;
 const CONNECTION_URL = process.env.CONNECTION_URL
 
 //HTTP request logger
+
 app.use('/api', router)
 
 
@@ -32,3 +38,4 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: tr
 mongoose.connection.on('connected', () => {
     console.log('Mongoose is connected')
 })
+

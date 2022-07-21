@@ -29,7 +29,7 @@ export default function AddEntry(props) {
         props.modalOpenClose()
 
         axios( {
-            url: 'http://localhost:5000/api/save',
+            url: '/api/save',
             method: 'POST',
             data: formData
         })
@@ -42,10 +42,6 @@ export default function AddEntry(props) {
 
     }
 
-
-
-console.log(formData)
-console.log(props.data)
 
     return (
         <div className="modal">

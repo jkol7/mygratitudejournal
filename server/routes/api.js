@@ -21,9 +21,20 @@ router.get('/', (req, res) => {
 
 
 router.post('/save', (req, res) => {
+    console.log('Body:', req.body)
+    const data = req.body;
+    
+    const newGratitude = new PostGratitude(data)
 
-            console.log('Body:', req.body)
-            res.json({msg: 'We received your data'})
+    newGratitude.save((error) => {
+        if (error){
+            res.status(500).json({ msg: 'Sorry, internal server error' })
+            return
+        } 
+           return res.json({
+                msg: 'Your data has been saved!'
+            })
+        })
         })
 
 
