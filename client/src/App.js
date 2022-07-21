@@ -11,6 +11,8 @@ export default function App(){
     const [data, setData] = React.useState([])
 
 
+    //Gets data from MongoDB and sets it in state
+
     React.useEffect(() => {
         axios.get('/api').then(res => {
           setData(res.data);
@@ -18,15 +20,8 @@ export default function App(){
       }, [data])
 
 
-    //Clicking the button to add an entry toggles this modal. So does clicking the "X" inside the modal.
-
-    function modalOpenClose() {
-
-        setModalOpen(prevModalOpen => !prevModalOpen)
-    }
-
-
-    //Maps through the data array with card data
+      
+    //Maps through the data to set props
 
     const cards = data.map(item => {
         
@@ -37,6 +32,14 @@ export default function App(){
         )
     })
     
+
+
+    //Clicking the button to add an entry toggles this modal. So does clicking the "X" inside the modal.
+
+    function modalOpenClose() {
+
+        setModalOpen(prevModalOpen => !prevModalOpen)
+    }
 
 
     return (

@@ -4,17 +4,17 @@ import cors from "cors"
 import bodyParser from "body-parser"
 import mongoose from 'mongoose'
 import dotenv from "dotenv"
-import { PostGratitude } from "./models/postGratitude.js"
 import { router } from './routes/api.js'
 
 const app = express()
 
+//Cors is commented out because we are currently using a proxy to run with concurrently 
 //app.use(cors())
 
 dotenv.config()
 
 
-// Able to pass body from form
+// Created to pass body from form
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -23,6 +23,7 @@ app.use(express.urlencoded({ extended: false }))
 const PORT = process.env.PORT || 5000;
 
 const CONNECTION_URL = process.env.CONNECTION_URL
+
 
 //HTTP request logger
 
