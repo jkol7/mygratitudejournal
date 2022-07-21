@@ -1,4 +1,5 @@
 import React from "react"
+import axios from "axios"
 
 
 export default function AddEntry(props) {
@@ -25,9 +26,23 @@ export default function AddEntry(props) {
     }
     function handleSubmit(event){
         event.preventDefault()
-        props.data.push(formData)
         props.modalOpenClose()
+
+        axios( {
+            url: 'http://localhost:5000/api/save',
+            method: 'POST',
+            data: formData
+        })
+        .then(() => {
+            console.log('data has been sent to the server from axios')
+        })
+        .catch(() => {
+            console.log('Data could not be sent from axios')
+        })
+
     }
+
+
 
 console.log(formData)
 console.log(props.data)

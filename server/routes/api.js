@@ -20,5 +20,15 @@ router.get('/', (req, res) => {
 })
 
 
+router.post('/save', (req, res) => {
+
+            console.log('Body:', req.body)
+            res.json({msg: 'We received your data'})
+        })
+
+
+
+
+
 
 export { router }
