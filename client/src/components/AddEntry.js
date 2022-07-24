@@ -1,6 +1,7 @@
 import React from "react"
 import axios from "axios"
 
+axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
 
 export default function AddEntry(props) {
 
@@ -10,7 +11,7 @@ export default function AddEntry(props) {
             title: "", 
             category: "",
             description: "",
-            imageUrl: null        }
+            imageUrl: ""        }
     )
 
 
@@ -39,9 +40,11 @@ export default function AddEntry(props) {
         event.preventDefault()
         props.modalOpenClose()
 
+        console.log(formData)
         axios( {
             url: '/api/save',
             method: 'POST',
+            headers: { "Content-Type": "multipart/form-data" },
             data: formData
         })
         .then(() => {
@@ -97,12 +100,8 @@ export default function AddEntry(props) {
                         <label htmlFor="entryImage">Upload image:</label>
                         <input
                             type="file" 
-                            id="imageUrl" 
                             name="imageUrl"
-                            accept="image/*"
-                            filename="imageUrl"
                             file_extension=".jpg,.gif,.png"
-                            value={formData.imageUrl}
                             onChange={handleFile}
                             className="choosefiletext"
                         />

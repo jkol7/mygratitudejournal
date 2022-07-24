@@ -31,7 +31,7 @@ const CONNECTION_URL = process.env.CONNECTION_URL
 
 app.use('/api', router)
 
-app.use('./public/uploads', express.static('uploads'))
+app.use('./public/', express.static('uploads'))
 
 
 //MongoDB and PORT connection

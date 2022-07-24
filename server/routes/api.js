@@ -12,7 +12,7 @@ const router = express.Router()
 const storage = multer.diskStorage({
     //destination for files
     destination: function (request, file, callback) {
-      callback(null, './client/public/uploads');
+      callback(null, '../client/public');
     },
   
     //add back the extension
@@ -44,6 +44,7 @@ router.get('/', (req, res) => {
 
 router.post('/save', upload.single('imageUrl'), (req, res) => {
 
+    console.log(req.file)
 
     const newGratitude = new PostGratitude({
 
