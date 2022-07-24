@@ -20,6 +20,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 
+
+
 const PORT = process.env.PORT || 5000;
 
 const CONNECTION_URL = process.env.CONNECTION_URL
@@ -28,6 +30,8 @@ const CONNECTION_URL = process.env.CONNECTION_URL
 //HTTP request logger
 
 app.use('/api', router)
+
+app.use('./public/uploads', express.static('uploads'))
 
 
 //MongoDB and PORT connection

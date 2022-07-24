@@ -5,8 +5,7 @@ const postSchema = mongoose.Schema({
     title: String,
     category: String,
     description: String,
-    imageURL: String
-    
+    imageUrl: String    
 },
 {collection: 'gratitudejournal'}
 );

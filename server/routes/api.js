@@ -1,16 +1,38 @@
 import express from "express"
 import { PostGratitude } from '../models/postGratitude.js'
-
+import multer from "multer"
 
 const router = express.Router()
 
+
+
+//define storage for images
+
+
+const storage = multer.diskStorage({
+    //destination for files
+    destination: function (request, file, callback) {
+      callback(null, './client/public/uploads');
+    },
+  
+    //add back the extension
+    filename: function (request, file, callback) {
+      callback(null, Date.now() + file.originalname);
+    },
+  });
+  
+  //upload parameters for multer
+  const upload = multer({
+    storage: storage
+    });
+
+  
 
 
 router.get('/', (req, res) => {
 
     PostGratitude.find({})
         .then((data) => {
-            console.log('Data: ', data)
             res.json(data)
         })
         .catch((error) => {
@@ -20,11 +42,17 @@ router.get('/', (req, res) => {
 })
 
 
-router.post('/save', (req, res) => {
-    console.log('Body:', req.body)
-    const data = req.body;
-    
-    const newGratitude = new PostGratitude(data)
+router.post('/save', upload.single('imageUrl'), (req, res) => {
+
+
+    const newGratitude = new PostGratitude({
+
+        title: req.body.title,
+        category: req.body.category,
+        description: req.body.description,
+        imageUrl: req.file.filename
+
+    })
 
     newGratitude.save((error) => {
         if (error){
@@ -36,9 +64,6 @@ router.post('/save', (req, res) => {
             })
         })
         })
-
-
-
 
 
 

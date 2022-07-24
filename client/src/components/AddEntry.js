@@ -10,11 +10,10 @@ export default function AddEntry(props) {
             title: "", 
             category: "",
             description: "",
-            imageUrl: ""        }
+            imageUrl: null        }
     )
 
 
-    
     function handleChange(event) {
         const {name, value} = event.target
         setFormData(prevFormData => {
@@ -24,6 +23,18 @@ export default function AddEntry(props) {
             }
         })
     }
+
+
+    function handleFile(event) {
+     setFormData(prevFormData => {
+    return {
+            ...prevFormData,
+           imageUrl: event.target.files[0]
+        }})
+    }
+
+
+
     function handleSubmit(event){
         event.preventDefault()
         props.modalOpenClose()
@@ -34,7 +45,7 @@ export default function AddEntry(props) {
             data: formData
         })
         .then(() => {
-            console.log('data has been sent to the server from axios')
+            console.log(`data has been sent to the server from axios: ${formData}`)
         })
         .catch(() => {
             console.log('Data could not be sent from axios')
@@ -48,7 +59,7 @@ export default function AddEntry(props) {
                 <div className="modal-content">
                     <span className="closeBtn" onClick={props.modalOpenClose}>&times;</span>
                     
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} encType="multipart/form-data">
 
                         <select
                         id='category'
@@ -87,11 +98,12 @@ export default function AddEntry(props) {
                         <input
                             type="file" 
                             id="imageUrl" 
-                            name="imageUrl" 
-                            accept="image/*" 
+                            name="imageUrl"
+                            accept="image/*"
+                            filename="imageUrl"
                             file_extension=".jpg,.gif,.png"
                             value={formData.imageUrl}
-                            onChange={handleChange}
+                            onChange={handleFile}
                             className="choosefiletext"
                         />
                     
