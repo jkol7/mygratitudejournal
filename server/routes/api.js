@@ -20,10 +20,14 @@ const storage = multer.diskStorage({
       callback(null, Date.now() + file.originalname);
     },
   });
+
   
+  const maxSize = 5 * 1024 * 1024;
+
   //upload parameters for multer
   const upload = multer({
-    storage: storage
+    storage: storage,
+    limits: { fileSize: maxSize }
     });
 
   
