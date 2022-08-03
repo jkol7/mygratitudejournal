@@ -48,8 +48,6 @@ router.get('/', (req, res) => {
 
 router.post('/save', upload.single('imageUrl'), (req, res) => {
 
-    console.log(req.file)
-
     const newGratitude = new PostGratitude({
 
         title: req.body.title,
@@ -70,6 +68,25 @@ router.post('/save', upload.single('imageUrl'), (req, res) => {
         })
         })
 
+
+      
+router.put('/edit/:id', (req, res) => {
+
+    const newGratitude = new PostGratitude({
+
+        title: req.body.title,
+        category: req.body.category,
+        description: req.body.description,
+        imageUrl: req.file.filename
+
+    })
+
+    PostGratitude.findByIdAndUpdate(req.params.id, req.body)
+      .then(data => res.json({ msg: 'Updated successfully' }))
+      .catch(err =>
+        res.status(400).json({ error: 'Unable to update the Database' })
+      );
+  });
 
 
 export { router }
