@@ -2,12 +2,14 @@ import React from "react"
 import Nav from "./components/Nav"
 import Card from "./components/Card"
 import AddEntry from "./components/AddEntry"
+import EditEntry from './components/EditEntry'
 import axios from "axios"
 
 
 export default function App(){
     
     const [modalOpen, setModalOpen] = React.useState(false)
+    const [editOpen, setEditOpen] = React.useState(false)
     const [data, setData] = React.useState([])
 
 
@@ -28,6 +30,7 @@ export default function App(){
         return (<Card
             key={item.id}
             item={item}
+            editOpenClose={editOpenClose}
             />
         )
     })
@@ -41,6 +44,10 @@ export default function App(){
         setModalOpen(prevModalOpen => !prevModalOpen)
     }
 
+    function editOpenClose() {
+        setEditOpen(prevEditOpen => !prevEditOpen)
+    }
+
 
     return (
         <div className="maindiv">
@@ -51,6 +58,8 @@ export default function App(){
         {modalOpen && <AddEntry 
         modalOpenClose={modalOpenClose}
         data={data}/>}
+        {editOpen && <EditEntry 
+        editOpenClose={editOpenClose}/>}
         </div>
         </div>
     )

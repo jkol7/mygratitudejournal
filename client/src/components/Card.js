@@ -29,14 +29,13 @@ export default function Card (props) {
 
     return (
         <div className="cardmain">
-
          <div className="imgcontainer">
             <img src={props.item.imageUrl}></img>
             </div>   
         <div className="rightcontainer">       
             <div className="abovetitle">    
                 <span><FontAwesomeIcon icon={iconType} color="#FF0AD6"/> {props.item.category.toUpperCase()}</span>
-                <span>Edit</span>
+                <span onClick={props.editOpenClose}>Edit</span>
             </div>
 
             <div className="titlemain">
