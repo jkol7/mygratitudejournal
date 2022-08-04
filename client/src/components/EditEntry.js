@@ -35,9 +35,18 @@ import axios from 'axios'
         axios ( {
             url: `/api/${props.data[0]._id}`,
             method: 'PUT',
-           headers: { "Content-Type": "multipart/form-data" },
+            headers: { "Content-Type": "application/json" },
+            data: {
+                title: `${formData.title}`, 
+                category: "Hey",
+                description: "Hey",
+                imageUrl: "Hey"
+        },
+        params: {
             id: props.data[0]._id
-        })
+        }
+    
+    })
         .then(() => {
             console.log(`data has been sent to the server from axios: ${props.data[0]._id}`)
         })
