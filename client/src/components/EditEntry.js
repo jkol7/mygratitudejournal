@@ -38,9 +38,9 @@ import axios from 'axios'
             headers: { "Content-Type": "application/json" },
             data: {
                 title: `${formData.title}`, 
-                category: "Hey",
-                description: "Hey",
-                imageUrl: "Hey"
+                category: `${formData.category}`,
+                description: `${formData.description}`,
+                imageUrl: `${props.data[0].imageUrl}`
         },
         params: {
             id: props.data[0]._id
@@ -63,6 +63,17 @@ return (
                     
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
 
+                    <select
+                        id='category'
+                        name='category'
+                        value={formData.category}
+                        onChange={handleChange}>
+                            <option value="">-- Choose Type --</option>
+                            <option value='person'>Person</option>
+                            <option value='pet'>Pet</option>
+                            <option value='experience'>Experience</option>
+                        </select>
+
                         <label htmlFor="title">Entry Title</label>
                         <input 
                             type="text" 
@@ -74,6 +85,17 @@ return (
                             onChange={handleChange}
                             />
                     
+                        <label htmlFor="entryDesc">Entry Description</label>
+                        <input 
+                            type="text" 
+                            id="description" 
+                            name="description" 
+                            size="20" 
+                            placeholder="Give a Short Description"
+                            value={formData.description}
+                            onChange={handleChange}
+                        />
+
                         <button>Edit Gratitude</button>
                     </form>
 
