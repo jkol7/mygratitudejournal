@@ -5,6 +5,7 @@ import axios from 'axios'
   export default function EditEntry(props){
 
     
+  
     const [formData, setFormData] = React.useState(
         {
             title: "", 
@@ -30,12 +31,11 @@ import axios from 'axios'
         event.preventDefault()
         props.editOpenClose()
 
-        console.log(formData)
         axios( {
             url: '/api/edit',
             method: 'PUT',
-            headers: { "Content-Type": "multipart/form-data" },
-            data: formData
+           // headers: { "Content-Type": "multipart/form-data" },
+            tile: formData.title
         })
         .then(() => {
             console.log(`data has been sent to the server from axios: ${formData}`)

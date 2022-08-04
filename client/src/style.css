@@ -27,6 +27,7 @@ nav {
 .cardmain {
     display: flex;
     align-items: center;
+    padding: 0 100px;
 
 }
 

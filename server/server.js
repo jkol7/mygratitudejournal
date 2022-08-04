@@ -8,8 +8,7 @@ import { router } from './routes/api.js'
 
 const app = express()
 
-//Cors is commented out because we are currently using a proxy to run with concurrently 
-//app.use(cors())
+app.use(cors())
 
 dotenv.config()
 
@@ -33,7 +32,18 @@ app.use('/api', router)
 
 app.use('./public/', express.static('uploads'))
 
+app.use((err, req, res, next) => {
+    const errorStatus = err.status || 500;
+    const errorMessage = err.message || "Something went wrong!";
+    return res.status(errorStatus).json({
+      success: false,
+      status: errorStatus,
+      message: errorMessage,
+      stack: err.stack,
+    });
+  });
 
+  
 //MongoDB and PORT connection
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true})

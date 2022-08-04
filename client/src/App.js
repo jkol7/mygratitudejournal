@@ -59,7 +59,8 @@ export default function App(){
         modalOpenClose={modalOpenClose}
         data={data}/>}
         {editOpen && <EditEntry 
-        editOpenClose={editOpenClose}/>}
+        editOpenClose={editOpenClose}
+        data={data}/>}
         </div>
         </div>
     )

@@ -39,8 +39,8 @@ router.get('/', (req, res) => {
         .then((data) => {
             res.json(data)
         })
-        .catch((error) => {
-            console.log(`This is your error: ${error}`)
+        .catch((err) => {
+          next(err)
         })
 
 })
@@ -70,14 +70,44 @@ router.post('/save', upload.single('imageUrl'), (req, res) => {
 
 
       
-router.put('/edit/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
+  try {
 
+    const updatedGratitude = await PostGratitude.findByIdAndUpdate(req.params.id, 
+      {$set: req.body},
+      {new: true})
+
+    res.status(200).json(updatedGratitude)
+
+  } catch (err){
+
+    next(err)
+
+}
+})
+
+
+
+
+router.delete('/:id', async (req, res) => {
+  try {
+
+    await PostGratitude.findByIdAndDelete(req.params.id)
+      
+    res.status(200).json("Gratitude deleted")
+
+  } catch (err){
+
+    next(err)
+
+}
+})
+
+
+  /*
     const newGratitude = new PostGratitude({
 
-        title: req.body.title,
-        category: req.body.category,
-        description: req.body.description,
-        imageUrl: req.file.filename
+        title: req.body.title
 
     })
 
@@ -86,7 +116,9 @@ router.put('/edit/:id', (req, res) => {
       .catch(err =>
         res.status(400).json({ error: 'Unable to update the Database' })
       );
-  });
+
+      */
+
 
 
 export { router }
