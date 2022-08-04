@@ -4,6 +4,7 @@ import axios from 'axios'
 
   export default function EditEntry(props){
 
+    console.log(props.data[0]._id)
     
   
     const [formData, setFormData] = React.useState(
@@ -31,14 +32,14 @@ import axios from 'axios'
         event.preventDefault()
         props.editOpenClose()
 
-        axios( {
-            url: '/api/edit',
+        axios ( {
+            url: `/api/${props.data[0]._id}`,
             method: 'PUT',
-           // headers: { "Content-Type": "multipart/form-data" },
-            tile: formData.title
+           headers: { "Content-Type": "multipart/form-data" },
+            id: props.data[0]._id
         })
         .then(() => {
-            console.log(`data has been sent to the server from axios: ${formData}`)
+            console.log(`data has been sent to the server from axios: ${props.data[0]._id}`)
         })
         .catch(() => {
             console.log('Data could not be sent from axios')

@@ -24,9 +24,6 @@ export default function Card (props) {
         iconType=faPlane
     )
 
-
-
-
     return (
         <div className="cardmain">
          <div className="imgcontainer">

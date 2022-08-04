@@ -73,9 +73,7 @@ router.post('/save', upload.single('imageUrl'), (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
 
-    const updatedGratitude = await PostGratitude.findByIdAndUpdate(req.params.id, 
-      {$set: req.body},
-      {new: true})
+    const updatedGratitude = await PostGratitude.findByIdAndUpdate(req.params.id)
 
     res.status(200).json(updatedGratitude)
 

@@ -26,7 +26,6 @@ export default function App(){
     //Maps through the data to set props
 
     const cards = data.map(item => {
-        
         return (<Card
             key={item.id}
             item={item}
