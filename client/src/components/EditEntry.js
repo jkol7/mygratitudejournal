@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 
-
   export default function EditEntry(props){
 
     console.log(props.data[0]._id)
@@ -12,7 +11,8 @@ import axios from 'axios'
             title: "", 
             category: "",
             description: "",
-            imageUrl: ""        }
+            imageUrl: "",
+            _id: "62ed60dbdff2f3a26f4623e9"       }
     )
 
 
@@ -28,23 +28,31 @@ import axios from 'axios'
 
 
 
+
+    function handleFile(event) {
+        setFormData(prevFormData => {
+       return {
+               ...prevFormData,
+              imageUrl: event.target.files[0]
+           }})
+       }
+
+       //application/json used to work without image
+
     function handleSubmit(event){
         event.preventDefault()
         props.editOpenClose()
 
+        console.log(formData)
+        
         axios ( {
             url: `/api/${props.data[0]._id}`,
-            method: 'PUT',
-            headers: { "Content-Type": "application/json" },
-            data: {
-                title: `${formData.title}`, 
-                category: `${formData.category}`,
-                description: `${formData.description}`,
-                imageUrl: `${props.data[0].imageUrl}`
-        },
-        params: {
+            method: 'POST',
+            headers: { "Content-Type": "multipart/form-data" },
+            data: formData,
+          /*  params: {
             id: props.data[0]._id
-        }
+        }*/
     
     })
         .then(() => {
@@ -94,6 +102,16 @@ return (
                             placeholder="Give a Short Description"
                             value={formData.description}
                             onChange={handleChange}
+                        />
+
+
+                        <label htmlFor="entryImage">Upload image:</label>
+                        <input
+                            type="file" 
+                            name="imageUrl"
+                            file_extension=".jpg,.gif,.png"
+                            onChange={handleFile}
+                            className="choosefiletext"
                         />
 
                         <button>Edit Gratitude</button>

@@ -70,26 +70,31 @@ router.post('/save', upload.single('imageUrl'), (req, res) => {
 
 
       
-router.put('/:id', async (req, res) => {
-  try {
+router.post('/:id', upload.single('imageUrl'), (req, res) => {
 
-    const { title, category, description, imageUrl } = req.body
-    let newentry = { title: title , category: category, description: description, imageUrl: imageUrl}
-    
-    let old_entry = await PostGratitude.findById(req.params.id);
-    if (!old_entry) {
-        return res.status(404).send({ success, error: 'Not Found'})
-    }
-    
-    const update_entry = await PostGratitude.findByIdAndUpdate(req.params.id, { $set: newentry }, { new: true })
-    return res.send(update_entry)
-} catch (error) {
-    return res.status(500).send("error: Internal Server Error")
-}
+
+const editGratitude = new PostGratitude({
+
+  title: req.body.title,
+  category: req.body.category,
+  description: req.body.description,
+  imageUrl: req.file.filename,
 
 })
 
+console.log(editGratitude)
+console.log(req.body._id)
+const update_entry = PostGratitude.findByIdAndUpdate(req.body._id, { $set: editGratitude }, {new:true})
+return res.send(update_entry)
 
+})
+    
+/*
+    const update_entry = PostGratitude.findByIdAndUpdate(req.params.id, { $set: newGratitude }, { new: true })
+    return res.send(update_entry)
+
+  })
+*/
 
 router.delete('/:id', async (req, res) => {
   try {

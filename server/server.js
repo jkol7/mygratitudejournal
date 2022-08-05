@@ -15,7 +15,7 @@ dotenv.config()
 // Created to pass body from form
 
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 
 
 
