@@ -2,19 +2,35 @@ import React from 'react'
 import axios from 'axios'
 
   export default function EditEntry(props){
-
-    console.log(props.data[0]._id)
     
-  
+
+
+   axios.get(`/api/${props.id}`, {
+        params: {
+            id: props.id
+        }})
+        .then(res => {
+            
+            console.log(res.data)
+            console.log(res.data.title)
+            console.log(res.data.category)
+
+            let prevTitle = res.data.title
+            let prevCategory = res.data.category
+
+        
+        
+        })
+          
     const [formData, setFormData] = React.useState(
         {
             title: "", 
             category: "",
             description: "",
             imageUrl: "",
-            _id: "62ed60dbdff2f3a26f4623e9"       }
+            //_id: "62ed60dbdff2f3a26f4623e9"     
+         }
     )
-
 
     function handleChange(event) {
         const {name, value} = event.target
@@ -26,8 +42,8 @@ import axios from 'axios'
         })
     }
 
-
-
+    console.log(props)
+    console.log(props.id)
 
     function handleFile(event) {
         setFormData(prevFormData => {
@@ -43,14 +59,16 @@ import axios from 'axios'
         event.preventDefault()
         props.editOpenClose()
 
-        console.log(formData)
-        
+
         axios ( {
-            url: `/api/${props.data[0]._id}`,
-            method: 'POST',
+           // url: `/api/${props.data[0]._id}`,
+            url: '/api/edit',
+            method: 'PUT',
             headers: { "Content-Type": "multipart/form-data" },
             data: formData,
-          /*  params: {
+           
+           
+           /* params: {
             id: props.data[0]._id
         }*/
     
@@ -63,6 +81,11 @@ import axios from 'axios'
         })
 
     }
+
+
+
+
+
 
 return (
     <div className="modal">

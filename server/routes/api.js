@@ -33,9 +33,9 @@ const storage = multer.diskStorage({
   
 
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
 
-    PostGratitude.find({})
+   await PostGratitude.find({})
         .then((data) => {
             res.json(data)
         })
@@ -44,6 +44,22 @@ router.get('/', (req, res) => {
         })
 
 })
+
+
+
+router.get('/:id', (req, res) => {
+
+  PostGratitude.findById(req.params.id)
+      .then((data) => {
+          return res.json(data)
+      })
+      .catch((err) => {
+        next(err)
+      })
+
+})
+
+
 
 
 router.post('/save', upload.single('imageUrl'), (req, res) => {
@@ -69,9 +85,36 @@ router.post('/save', upload.single('imageUrl'), (req, res) => {
         })
 
 
-      
-router.post('/:id', upload.single('imageUrl'), (req, res) => {
+ router.put('/edit', upload.single('imageUrl'), async (req, res) => {
 
+
+  const newTitle = req.body.title 
+  const newCategory = req.body.category
+  const newDescription = req.body.description
+  const newImageUrl = req.file.filename
+  const id = req.body.id
+
+
+  try {
+    await PostGratitude.findByIdAndUpdate(id, (error, postToUpdate)  => {
+      postToUpdate.title = newTitle
+      postToUpdate.category = newCategory
+      postToUpdate.description = newDescription
+      postToUpdate.imageUrl = newImageUrl
+      postToUpdate.save()
+
+    })
+  } catch (error){
+    console.log(error)
+  }
+
+  res.send("Updated")
+ })
+
+        /*
+
+      
+router.put('/edit', upload.single('imageUrl'), (req, res) => {
 
 const editGratitude = new PostGratitude({
 
@@ -79,22 +122,17 @@ const editGratitude = new PostGratitude({
   category: req.body.category,
   description: req.body.description,
   imageUrl: req.file.filename,
+  //_id: req.body._id
 
 })
 
 console.log(editGratitude)
-console.log(req.body._id)
-const update_entry = PostGratitude.findByIdAndUpdate(req.body._id, { $set: editGratitude }, {new:true})
+console.log(editGratitude._id)
+const update_entry = PostGratitude.findByIdAndUpdate(editGratitude._id, { $set: editGratitude }, {new:true})
 return res.send(update_entry)
 
 })
-    
-/*
-    const update_entry = PostGratitude.findByIdAndUpdate(req.params.id, { $set: newGratitude }, { new: true })
-    return res.send(update_entry)
-
-  })
-*/
+    */
 
 router.delete('/:id', async (req, res) => {
   try {

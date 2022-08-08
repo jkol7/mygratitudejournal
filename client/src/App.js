@@ -11,6 +11,7 @@ export default function App(){
     const [modalOpen, setModalOpen] = React.useState(false)
     const [editOpen, setEditOpen] = React.useState(false)
     const [data, setData] = React.useState([])
+    const [editID, setEditID] = React.useState("")
 
 
     //Gets data from MongoDB and sets it in state
@@ -19,17 +20,17 @@ export default function App(){
         axios.get('/api').then(res => {
           setData(res.data);
         })
-      }, [data])
+      }, [])
 
 
-      
+
     //Maps through the data to set props
-
     const cards = data.map(item => {
         return (<Card
-            key={item.id}
+            key={item._id}
             item={item}
             editOpenClose={editOpenClose}
+            id={item._id}
             />
         )
     })
@@ -43,8 +44,9 @@ export default function App(){
         setModalOpen(prevModalOpen => !prevModalOpen)
     }
 
-    function editOpenClose() {
+    function editOpenClose(selectedEntry) {
         setEditOpen(prevEditOpen => !prevEditOpen)
+        setEditID(selectedEntry)
     }
 
 
@@ -59,7 +61,8 @@ export default function App(){
         data={data}/>}
         {editOpen && <EditEntry 
         editOpenClose={editOpenClose}
-        data={data}/>}
+        data={data}
+        id={editID}/>}
         </div>
         </div>
     )
