@@ -1,7 +1,6 @@
 import React from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaw, faPlane, faPerson} from '@fortawesome/free-solid-svg-icons'
-import EditEntry from './EditEntry'
 
 
 
@@ -10,6 +9,9 @@ export default function Card (props) {
 
     let experience
     let iconType
+
+
+    // Determines what icons and details are shown. Ex. Date for experiences. 
 
     if (props.item.category === "experience"){
     experience = true
@@ -26,10 +28,12 @@ export default function Card (props) {
     )
 
 
+    // Pass props.id to edit component to have data of clicked gratitude shown.
+
+
     function editClick(){
-        props.editOpenClose(props.id)
-        // Need to pass this props.id to edit component
-        console.log("Ya it's here" + props.id)
+               
+        props.editOpenClose(props.id)  
     }
 
     return (

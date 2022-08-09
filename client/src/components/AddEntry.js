@@ -40,7 +40,7 @@ export default function AddEntry(props) {
         event.preventDefault()
         props.modalOpenClose()
 
-        console.log(formData)
+        
         axios( {
             url: '/api/save',
             method: 'POST',
@@ -49,6 +49,9 @@ export default function AddEntry(props) {
         })
         .then(() => {
             console.log(`data has been sent to the server from axios: ${formData}`)
+        })
+        .then(() => {
+            props.changedEntry()
         })
         .catch(() => {
             console.log('Data could not be sent from axios')

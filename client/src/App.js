@@ -12,6 +12,7 @@ export default function App(){
     const [editOpen, setEditOpen] = React.useState(false)
     const [data, setData] = React.useState([])
     const [editID, setEditID] = React.useState("")
+    const [cards, setCards] = React.useState([])
 
 
     //Gets data from MongoDB and sets it in state
@@ -23,18 +24,29 @@ export default function App(){
       }, [])
 
 
-
     //Maps through the data to set props
-    const cards = data.map(item => {
-        return (<Card
-            key={item._id}
-            item={item}
-            editOpenClose={editOpenClose}
-            id={item._id}
-            />
-        )
-    })
-    
+
+
+    React.useEffect(() => {
+
+        setCards(data.map(item => {
+            return (<Card
+                key={item._id}
+                item={item}
+                editOpenClose={editOpenClose}
+                id={item._id}
+                />
+            )}))
+    }, [data])
+
+  
+   function changedEntry(){
+
+    axios.get('/api').then(res => {
+        setData(res.data);
+      })
+
+   } 
 
 
     //Clicking the button to add an entry toggles this modal. So does clicking the "X" inside the modal.
@@ -58,11 +70,11 @@ export default function App(){
         <button onClick={modalOpenClose}>Add New</button>
         {modalOpen && <AddEntry 
         modalOpenClose={modalOpenClose}
-        data={data}/>}
+        changedEntry={changedEntry}/>}
         {editOpen && <EditEntry 
         editOpenClose={editOpenClose}
-        data={data}
-        id={editID}/>}
+        id={editID}
+        changedEntry={changedEntry}/>}
         </div>
         </div>
     )

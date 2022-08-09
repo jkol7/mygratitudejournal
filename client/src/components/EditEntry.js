@@ -3,12 +3,13 @@ import axios from 'axios'
 
   export default function EditEntry(props){
     
+    // Gets the data of the entry clicked
 
-        useEffect(() => {
-           const getData = async () => {
-            const result = await axios.get(`/api/${props.id}`, {
-            params: {
-                id: props.id
+    useEffect(() => {
+        const getData = async () => {
+        const result = await axios.get(`/api/${props.id}`, {
+        params: {
+            id: props.id
             }})
         setFormData(result.data)
            }
@@ -16,17 +17,13 @@ import axios from 'axios'
     }, [])
 
           
-const [formData, setFormData] = React.useState(
-    {
+    const [formData, setFormData] = React.useState(
+        {
         title: "", 
         category: "",
         description: "",
         imageUrl: ""
-        //_id: "62ed60dbdff2f3a26f4623e9"     
-     }
-)
-
-
+         })
 
 
     function handleChange(event) {
@@ -40,6 +37,8 @@ const [formData, setFormData] = React.useState(
     }
 
 
+    // Handles image upload and sets it in form data
+
     function handleFile(event) {
         setFormData(prevFormData => {
        return {
@@ -48,31 +47,27 @@ const [formData, setFormData] = React.useState(
            }})
        }
 
-       //application/json used to work without image
 
+
+       
     function handleSubmit(event){
         event.preventDefault()
         props.editOpenClose()
 
-
         axios ( {
-           // url: `/api/${props.data[0]._id}`,
             url: '/api/edit',
             method: 'PUT',
             headers: { "Content-Type": "multipart/form-data" },
             data: formData,
-           
-           
-           /* params: {
-            id: props.data[0]._id
-        }*/
-    
-    })
-        .then(() => {
-            console.log(`data has been sent to the server from axios: ${props.data[0]._id}`)
         })
-        .catch(() => {
-            console.log('Data could not be sent from axios')
+        .then((response) => {
+            console.log(response)
+        })
+        .then(() => {
+           props.changedEntry()
+        })
+        .catch((error) => {
+            console.log(error)
         })
 
     }

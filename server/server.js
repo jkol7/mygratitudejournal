@@ -30,18 +30,6 @@ const CONNECTION_URL = process.env.CONNECTION_URL
 app.use('/api', router)
 
 app.use('./public/', express.static('uploads'))
-
-app.use((err, req, res, next) => {
-    const errorStatus = err.status || 500;
-    const errorMessage = err.message || "Something went wrong!";
-    return res.status(errorStatus).json({
-      success: false,
-      status: errorStatus,
-      message: errorMessage,
-      stack: err.stack,
-    });
-  });
-
   
 //MongoDB and PORT connection
 

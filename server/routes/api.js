@@ -107,6 +107,11 @@ router.post('/save', upload.single('imageUrl'), (req, res) => {
   catch (error){
     console.log(error)
   }
+
+  return res.json({
+    msg: 'Your data has been saved!'
+})
+
 })
     
 
@@ -119,27 +124,10 @@ router.delete('/:id', async (req, res) => {
 
   } catch (err){
 
-    next(err)
+    console.log(err)
 
 }
 })
-
-
-  /*
-    const newGratitude = new PostGratitude({
-
-        title: req.body.title
-
-    })
-
-    PostGratitude.findByIdAndUpdate(req.params.id, req.body)
-      .then(data => res.json({ msg: 'Updated successfully' }))
-      .catch(err =>
-        res.status(400).json({ error: 'Unable to update the Database' })
-      );
-
-      */
-
 
 
 export { router }
