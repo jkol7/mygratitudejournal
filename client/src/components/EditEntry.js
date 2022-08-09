@@ -1,36 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import axios from 'axios'
 
   export default function EditEntry(props){
     
 
+        useEffect(() => {
+           const getData = async () => {
+            const result = await axios.get(`/api/${props.id}`, {
+            params: {
+                id: props.id
+            }})
+        setFormData(result.data)
+           }
+        getData()
+    }, [])
 
-   axios.get(`/api/${props.id}`, {
-        params: {
-            id: props.id
-        }})
-        .then(res => {
-            
-            console.log(res.data)
-            console.log(res.data.title)
-            console.log(res.data.category)
-
-            let prevTitle = res.data.title
-            let prevCategory = res.data.category
-
-        
-        
-        })
           
-    const [formData, setFormData] = React.useState(
-        {
-            title: "", 
-            category: "",
-            description: "",
-            imageUrl: "",
-            //_id: "62ed60dbdff2f3a26f4623e9"     
-         }
-    )
+const [formData, setFormData] = React.useState(
+    {
+        title: "", 
+        category: "",
+        description: "",
+        imageUrl: ""
+        //_id: "62ed60dbdff2f3a26f4623e9"     
+     }
+)
+
+
+
 
     function handleChange(event) {
         const {name, value} = event.target
@@ -42,8 +39,6 @@ import axios from 'axios'
         })
     }
 
-    console.log(props)
-    console.log(props.id)
 
     function handleFile(event) {
         setFormData(prevFormData => {
@@ -85,8 +80,6 @@ import axios from 'axios'
 
 
 
-
-
 return (
     <div className="modal">
                 <div className="modal-content">
@@ -111,7 +104,7 @@ return (
                             id="title" 
                             name="title" 
                             size="20" 
-                            placeholder='Title Your Gratitude'
+                            placeholder={formData.title}
                             value={formData.title}
                             onChange={handleChange}
                             />

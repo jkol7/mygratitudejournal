@@ -87,52 +87,28 @@ router.post('/save', upload.single('imageUrl'), (req, res) => {
 
  router.put('/edit', upload.single('imageUrl'), async (req, res) => {
 
+ 
 
   const newTitle = req.body.title 
   const newCategory = req.body.category
   const newDescription = req.body.description
   const newImageUrl = req.file.filename
-  const id = req.body.id
+  const id = req.body._id
 
 
   try {
-    await PostGratitude.findByIdAndUpdate(id, (error, postToUpdate)  => {
-      postToUpdate.title = newTitle
-      postToUpdate.category = newCategory
-      postToUpdate.description = newDescription
-      postToUpdate.imageUrl = newImageUrl
-      postToUpdate.save()
-
-    })
-  } catch (error){
-    console.log(error)
+    await PostGratitude.findByIdAndUpdate(id, 
+      {title: newTitle,
+       category: newCategory,
+       description: newDescription,
+       imageUrl: newImageUrl})
   }
 
-  res.send("Updated")
- })
-
-        /*
-
-      
-router.put('/edit', upload.single('imageUrl'), (req, res) => {
-
-const editGratitude = new PostGratitude({
-
-  title: req.body.title,
-  category: req.body.category,
-  description: req.body.description,
-  imageUrl: req.file.filename,
-  //_id: req.body._id
-
+  catch (error){
+    console.log(error)
+  }
 })
-
-console.log(editGratitude)
-console.log(editGratitude._id)
-const update_entry = PostGratitude.findByIdAndUpdate(editGratitude._id, { $set: editGratitude }, {new:true})
-return res.send(update_entry)
-
-})
-    */
+    
 
 router.delete('/:id', async (req, res) => {
   try {
