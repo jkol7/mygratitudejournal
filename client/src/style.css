@@ -163,8 +163,12 @@ img {
     margin-top: 30px;
 }
 
+.modal .choosefiletext  {
+    margin-left: 80px;
+}
+
 .deleteButtonSection {
-    height: 75px;
+    max-height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -185,6 +189,18 @@ img {
     cursor: pointer;
 }
 
-.modal .choosefiletext  {
-    margin-left: 80px;
+.confirmDelete {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+#yesDelete {
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+#noDelete {
+    cursor: pointer;
 }

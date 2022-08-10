@@ -81,6 +81,12 @@ import axios from 'axios'
         setDeleteClicked(!deleteClicked)
     }
 
+
+    function triggerDelete(){
+        console.log('Delete now')
+    }
+
+
 return (
     <div className="modal">
                 <div className="modal-content">
@@ -135,7 +141,15 @@ return (
                     </form>
                     <div className='deleteButtonSection'>
                     <button id='deleteButton' onClick={toggleDeleteClicked}>Delete</button>
-                    {deleteClicked && "Confirm Deletion: YES"}
+                    {deleteClicked && 
+                    <>
+                    <p>Confirm Deletion:</p>
+                    <div className='confirmDelete'>
+                    <span id='yesDelete' onClick={triggerDelete}>YES</span>
+                    <span id='noDelete' onClick={toggleDeleteClicked}>NO</span>
+                    </div>
+                    </>
+                    }
                     </div>
                 </div>      
                 </div>
