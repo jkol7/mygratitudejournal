@@ -163,6 +163,28 @@ img {
     margin-top: 30px;
 }
 
+.deleteButtonSection {
+    height: 75px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 22.51px;
+}
+
+#deleteButton  {
+    
+    margin-top: 20px;
+    background-color: white;
+    color: #882DF0;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    filter: drop-shadow(0 0 0.15rem rgb(180, 180, 180));
+    cursor: pointer;
+}
+
 .modal .choosefiletext  {
     margin-left: 80px;
 }

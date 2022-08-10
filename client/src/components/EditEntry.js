@@ -26,6 +26,10 @@ import axios from 'axios'
          })
 
 
+    const [deleteClicked, setDeleteClicked] = React.useState(false)
+
+
+         
     function handleChange(event) {
         const {name, value} = event.target
         setFormData(prevFormData => {
@@ -49,7 +53,7 @@ import axios from 'axios'
 
 
 
-       
+
     function handleSubmit(event){
         event.preventDefault()
         props.editOpenClose()
@@ -73,7 +77,9 @@ import axios from 'axios'
     }
 
 
-
+    function toggleDeleteClicked(){
+        setDeleteClicked(!deleteClicked)
+    }
 
 return (
     <div className="modal">
@@ -127,7 +133,10 @@ return (
 
                         <button>Edit Gratitude</button>
                     </form>
-
+                    <div className='deleteButtonSection'>
+                    <button id='deleteButton' onClick={toggleDeleteClicked}>Delete</button>
+                    {deleteClicked && "Confirm Deletion: YES"}
+                    </div>
                 </div>      
                 </div>
 )  
