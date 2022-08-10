@@ -14,10 +14,10 @@ const storage = multer.diskStorage({
     destination: function (request, file, callback) {
       callback(null, '../client/public');
     },
-  
+    
     //add back the extension
     filename: function (request, file, callback) {
-      callback(null, Date.now() + file.originalname);
+      callback(null, Date.now() + file.originalname.split(" ").join("-").toLowerCase());
     },
   });
 
