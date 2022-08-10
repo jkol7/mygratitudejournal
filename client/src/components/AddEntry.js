@@ -39,7 +39,6 @@ export default function AddEntry(props) {
     function handleSubmit(event){
         event.preventDefault()
         props.modalOpenClose()
-
         
         axios( {
             url: '/api/save',
