@@ -61,8 +61,8 @@ export default function App(){
         setEditID(selectedEntry)
     }
 
-
     return (
+      
         <div className="maindiv">
         <Nav/>
         {cards}
