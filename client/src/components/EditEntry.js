@@ -26,6 +26,7 @@ import axios from 'axios'
          })
 
 
+         console.log("Here's your form data! ", formData.imageUrl)
     const [deleteClicked, setDeleteClicked] = React.useState(false)
 
 

@@ -95,25 +95,23 @@ router.post('/save', upload.single('imageUrl'), (req, res) => {
 
  router.put('/edit', upload.single('imageUrl'), async (req, res) => {
 
-  
-  const newTitle = req.body.title 
-  const newCategory = req.body.category
-  const newDescription = req.body.description
   let newImageUrl
   const id = req.body._id
 
-  if (typeof req.file === "undefined") {
-    newImageUrl = "sunset.jpg";
+ if (typeof req.file === "undefined") {
+    newImageUrl = req.body.imageUrl
   } else {
     newImageUrl = req.file.filename;
   }
+
   
   try {
     await PostGratitude.findByIdAndUpdate(id, 
-      {title: newTitle,
-       category: newCategory,
-       description: newDescription,
-       imageUrl: newImageUrl})
+      {title: req.body.title,
+       category: req.body.category,
+       description: req.body.description,
+       imageUrl: newImageUrl}
+       )
   }
 
   catch (error){
