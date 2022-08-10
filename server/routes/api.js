@@ -115,18 +115,12 @@ router.post('/save', upload.single('imageUrl'), (req, res) => {
 })
     
 
-router.delete('/:id', async (req, res) => {
-  try {
+router.delete('/:id', (req, res) => {
 
-    await PostGratitude.findByIdAndDelete(req.params.id)
+    PostGratitude.findByIdAndDelete(req.params.id)
       
-    res.status(200).json("Gratitude deleted")
-
-  } catch (err){
-
-    console.log(err)
-
-}
+    .then(res.status(200).json("Gratitude deleted"))
+    .catch((error) => console.log(error))
 })
 
 

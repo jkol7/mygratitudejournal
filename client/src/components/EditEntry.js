@@ -83,7 +83,15 @@ import axios from 'axios'
 
 
     function triggerDelete(){
-        console.log('Delete now')
+        console.log(props.id)
+         axios.delete(`/api/${props.id}`, {
+            params: {
+                id: props.id
+                }})
+         .then((response) => console.log(response))
+         .then(props.changedEntry())
+         .then(props.editOpenClose())
+         .catch((error) => console.log(error))
     }
 
 
