@@ -29,6 +29,8 @@ nav {
     display: flex;
     align-items: center;
     padding: 0 100px;
+    max-width: 500px;
+    word-break: break-word;
 
 }
 
@@ -73,9 +75,8 @@ h3 {
 .faBook {
     color: white;
     animation-iteration-count: 4;
-
-    
 }
+
 h1 {
     color: rgb(245, 245, 245);
 }
@@ -205,3 +206,127 @@ img {
 #noDelete {
     cursor: pointer;
 }
+
+
+@media all and (max-width: 650px){
+
+    .maindiv {
+        max-width: 100%;
+    }
+ 
+    nav {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-height: 100px;
+        background-color: #882DF0;
+        box-shadow: 1px 2px #d2d2d2;
+    }
+
+    nav .faBook {
+        padding: 10px 0 0 0;
+        margin: 0;
+    }
+    nav h1 {
+
+        font-size: 16px;
+        padding: 0 0 15px 0;
+        margin: 0;
+    }
+
+    .rightcontainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 340px;
+    }
+    
+
+    .abovetitle {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .titlemain {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap; 
+        max-width: 340px;   }
+
+    .imgcontainer {
+        padding-bottom: 5px;
+    }
+
+    .cardmain {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 340px;
+        word-break: break-word;
+
+    }
+
+}
+
+
+/*@media all and (max-width: 380px){
+    
+    
+    .cardmain {
+
+        max-width: 350px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .titlemain {
+
+        max-width: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+    }
+
+    .rightcontainer {
+        max-width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+    }
+
+    .titlemain {
+        max-width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+    }
+
+    .titlemain h3 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+    }
+
+}
+*/
