@@ -26,7 +26,7 @@ const PORT = process.env.PORT || 5000;
 
 //HTTP request logger
 
-app.use('/api', router)
+app.use('/', router)
 
 app.use('./public/', express.static('uploads'))
 
