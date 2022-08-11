@@ -5,7 +5,6 @@ import mongoose from 'mongoose'
 import dotenv from "dotenv"
 import { router } from './routes/api.js'
 
-
 const app = express()
 
 app.use(cors())
@@ -17,6 +16,7 @@ dotenv.config({ path: '../.env'})
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
 
 
