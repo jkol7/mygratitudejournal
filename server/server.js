@@ -31,10 +31,7 @@ app.use('/api', router)
 
 app.use('./public/', express.static('uploads'))
 
-
-if (process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.resolve(__dirname, "./client/build")));
-}
+app.use(express.static(path.resolve(__dirname, "./client/build")));
 
   
 //MongoDB and PORT connection
