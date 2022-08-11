@@ -40,6 +40,8 @@ if (process.env.NODE_ENV === 'production'){
   
 //MongoDB and PORT connection
 
+console.log('hello')
+
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
 .catch((error) => console.log(error.message) )
