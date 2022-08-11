@@ -7,7 +7,7 @@ import axios from 'axios'
 
     useEffect(() => {
         const getData = async () => {
-        const result = await axios.get(`/api/${props.id}`, {
+        const result = await axios.get(`/${props.id}`, {
         params: {
             id: props.id
             }})
@@ -59,7 +59,7 @@ import axios from 'axios'
         props.editOpenClose()
 
         axios ( {
-            url: '/api/edit',
+            url: '/edit',
             method: 'PUT',
             headers: { "Content-Type": "multipart/form-data" },
             data: formData,
@@ -84,7 +84,7 @@ import axios from 'axios'
 
     function triggerDelete(){
         console.log(props.id)
-         axios.delete(`/api/${props.id}`, {
+         axios.delete(`/${props.id}`, {
             params: {
                 id: props.id
                 }})

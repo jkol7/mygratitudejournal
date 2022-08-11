@@ -18,7 +18,7 @@ export default function App(){
     //Gets data from MongoDB and sets it in state
 
     React.useEffect(() => {
-        axios.get('/api').then(res => {
+        axios.get('/').then(res => {
           setData(res.data);
         })
       }, [])
@@ -42,7 +42,7 @@ export default function App(){
   
    function changedEntry(){
 
-    axios.get('/api').then(res => {
+    axios.get('/').then(res => {
         setData(res.data);
       })
 

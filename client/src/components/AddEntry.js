@@ -41,7 +41,7 @@ export default function AddEntry(props) {
         props.modalOpenClose()
         
         axios( {
-            url: '/api/save',
+            url: '/save',
             method: 'POST',
             headers: { "Content-Type": "multipart/form-data" },
             data: formData
