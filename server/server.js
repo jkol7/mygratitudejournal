@@ -9,7 +9,7 @@ const app = express()
 
 app.use(cors())
 
-dotenv.config({path: '../.env'})
+dotenv.config()
 
 
 // Created to pass body from form
