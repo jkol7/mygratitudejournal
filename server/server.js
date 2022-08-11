@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 import dotenv from "dotenv"
 import { router } from './routes/api.js'
 
-const path = require("path");
+
 const app = express()
 
 app.use(cors())
@@ -31,7 +31,6 @@ app.use('/api', router)
 
 app.use('./public/', express.static('uploads'))
 
-app.use(express.static(path.resolve(__dirname, "./client/build")));
 
   
 //MongoDB and PORT connection

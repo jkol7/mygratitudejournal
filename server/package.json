@@ -5,10 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "client": "cd ../client && npm start",
-    "heroku-postbuild": "cd client && npm install && npm run build",
-    "dev": "concurrently -n 'server,client' -c 'blue,green' \"nodemon server.js\" \"npm run client\""
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",

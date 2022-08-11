@@ -1,0 +1,8 @@
+{
+    "name": "gratitude-journal",
+    "version": "3.0.0",
+    "scripts": {
+      "start": "node server",
+      "build": "cd react-ui/ && npm install && npm run build",
+    }
+}
