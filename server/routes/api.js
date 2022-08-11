@@ -40,7 +40,7 @@ router.get('/', async (req, res) => {
             res.json(data)
         })
         .catch((err) => {
-          next(err)
+          console.log(err)
         })
 
 })
@@ -54,7 +54,7 @@ router.get('/:id', (req, res) => {
           return res.json(data)
       })
       .catch((err) => {
-        next(err)
+        console.log(err)
       })
 
 })
