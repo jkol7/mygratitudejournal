@@ -9,7 +9,7 @@ const app = express()
 
 app.use(cors())
 
-dotenv.config()
+dotenv.config({ path: '../.env'})
 
 
 // Created to pass body from form
@@ -26,7 +26,7 @@ const PORT = process.env.PORT || 5000;
 
 //HTTP request logger
 
-app.use('/', router)
+app.use('/api', router)
 
 app.use('./public/', express.static('uploads'))
 
