@@ -32,13 +32,10 @@ app.use('/api', router)
 app.use('./public/', express.static('uploads'))
 
 
-// Deploy to Heroku
-/*
 if (process.env.NODE_ENV === 'production'){
     app.use(express.static('./client/build'))
 }
 
-*/
   
 //MongoDB and PORT connection
 
