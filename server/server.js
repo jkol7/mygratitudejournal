@@ -5,6 +5,7 @@ import mongoose from 'mongoose'
 import dotenv from "dotenv"
 import { router } from './routes/api.js'
 
+const path = require("path");
 const app = express()
 
 app.use(cors())
