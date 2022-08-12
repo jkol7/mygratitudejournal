@@ -1,6 +1,8 @@
 import express from "express"
 import { PostGratitude } from '../models/postGratitude.js'
 import multer from "multer"
+import { protect } from '../middleware/authMiddleware.js'
+import { User } from '../models/userModel.js'
 
 const router = express.Router()
 
@@ -33,9 +35,9 @@ const storage = multer.diskStorage({
   
 
 
-router.get('/', async (req, res) => {
+router.get('/', protect, async (req, res) => {
 
-   await PostGratitude.find({})
+   await PostGratitude.find({ user: req.user.id })
         .then((data) => {
             res.json(data)
         })
@@ -47,7 +49,7 @@ router.get('/', async (req, res) => {
 
 
 
-router.get('/:id', (req, res) => {
+router.get('/:id', protect, (req, res) => {
 
   PostGratitude.findById(req.params.id)
       .then((data) => {
@@ -62,7 +64,7 @@ router.get('/:id', (req, res) => {
 
 
 
-router.post('/save', upload.single('imageUrl'), (req, res) => {
+router.post('/save', protect, upload.single('imageUrl'), (req, res) => {
 
   let newImageUrl
 
@@ -77,7 +79,9 @@ router.post('/save', upload.single('imageUrl'), (req, res) => {
         title: req.body.title,
         category: req.body.category,
         description: req.body.description,
-        imageUrl: newImageUrl
+        imageUrl: newImageUrl,
+        user: req.user.id
+
 
     })
 
@@ -93,7 +97,7 @@ router.post('/save', upload.single('imageUrl'), (req, res) => {
         })
 
 
- router.put('/edit', upload.single('imageUrl'), async (req, res) => {
+ router.put('/edit', protect, upload.single('imageUrl'), async (req, res) => {
 
   let newImageUrl
   const id = req.body._id
@@ -104,7 +108,23 @@ router.post('/save', upload.single('imageUrl'), (req, res) => {
     newImageUrl = req.file.filename;
   }
 
+  const user = await User.findById(req.user.id)
   
+  // Check for user
+
+  if (!user){
+    res.status(401)
+    throw new Error ('User not found')
+  }
+
+  // Checks logged in user matches goal user
+
+  if (PostGratitude.user.toString() !== user.id){
+    res.status(401)
+    throw new Error('User not authorized')
+  }
+
+
   try {
     await PostGratitude.findByIdAndUpdate(id, 
       {title: req.body.title,
@@ -125,12 +145,32 @@ router.post('/save', upload.single('imageUrl'), (req, res) => {
 })
     
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', protect, async (req, res) => {
 
-    PostGratitude.findByIdAndDelete(req.params.id)
+  const gratitude = await PostGratitude.findById(req.params.id)
+  const user = await User.findById(req.user.id)
+
+
+  console.log(gratitude)
+    
+  // Check for user
+
+  if (!user){
+    res.status(401)
+    throw new Error ('User not found')
+  }
+
+  // Checks logged in user matches goal user
+
+  if (gratitude.user.toString() !== user.id){
+    res.status(401)
+    throw new Error('User not authorized')
+  }
+  
+
+    await PostGratitude.findByIdAndDelete(req.params.id)
       
-    .then(res.status(200).json("Gratitude deleted"))
-    .catch((error) => console.log(error))
+    res.status(200).json("Gratitude deleted")
 })
 
 
