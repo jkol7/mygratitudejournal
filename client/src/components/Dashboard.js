@@ -1,8 +1,8 @@
 import React from "react"
-import Nav from "./components/Nav"
-import Card from "./components/Card"
-import AddEntry from "./components/AddEntry"
-import EditEntry from './components/EditEntry'
+import Nav from "./Nav"
+import Card from "./Card"
+import AddEntry from "./AddEntry"
+import EditEntry from './EditEntry'
 import axios from "axios"
 
 
@@ -64,7 +64,6 @@ export default function Dashboard(){
     return (
       
         <div className="maindiv">
-        <Nav/>
         {cards}
         <div className="buttonsection">
         <button onClick={modalOpenClose}>Add New</button>

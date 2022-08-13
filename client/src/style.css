@@ -14,16 +14,54 @@
 
 }
 nav {
-    
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    justify-content: space-evenly;
     max-height: 100px;
     background-color: #882DF0;
     box-shadow: 1px 2px #d2d2d2;
 }
 
+.titleContainer {
+    display: flex;
+    gap: 1.5%;
+    justify-content: end;
+    align-items: center;
+    flex-basis: 60%;
+}
+
+nav ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+
+nav ul li {
+    margin-left: 25px;
+  }
+  
+  nav ul li a {
+    color: rgb(240, 240, 240);
+    display: flex;
+    align-items: center;
+  }
+  
+  nav ul li a:hover {
+    color: #777;
+  }
+  
+  nav ul li a svg {
+    margin-right: 5px;
+  }
+
+
+ul {
+    list-style: none;
+}
+
+li {
+    line-height: 2.2;
+  }
 
 .cardmain {
     display: flex;
@@ -224,6 +262,10 @@ img {
         max-height: 100px;
         background-color: #882DF0;
         box-shadow: 1px 2px #d2d2d2;
+    }
+
+    nav h1 {
+        text-decoration: none;
     }
 
     nav .faBook {
