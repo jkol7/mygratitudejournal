@@ -149,9 +149,6 @@ router.delete('/:id', protect, async (req, res) => {
 
   const gratitude = await PostGratitude.findById(req.params.id)
   const user = await User.findById(req.user.id)
-
-
-  console.log(gratitude)
     
   // Check for user
 
