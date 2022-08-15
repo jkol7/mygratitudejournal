@@ -85,9 +85,8 @@ export default function Register() {
                     withCredentials: true
                 }
             );
-            console.log(response?.data);
-            console.log(response?.accessToken);
-            console.log(JSON.stringify(response))
+
+
             setSuccess(true);
             //clear state and controlled inputs
             //need value attrib on inputs for this
@@ -111,7 +110,7 @@ export default function Register() {
 
     return (
 
-        <div className='mainRegister'>
+        <div className='mainCard'>
 
 {success ? (
                 <section>
