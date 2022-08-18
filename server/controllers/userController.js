@@ -2,21 +2,25 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import asyncHandler from 'express-async-handler'
 import { User } from '../models/userModel.js'
-import mongoose from 'mongoose'
 
 
 
 // Generate tokens
 
-const generateAccessToken = (id) => {
-    return jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
+const generateAccessToken = (founderUserName, foundUserId) => {
+    return jwt.sign(
+        { "username": founderUserName,
+        "user": foundUserId },
+        process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: '1h',
     })
 }
 
 
-const generateRefreshToken = (id) => {
-    return jwt.sign({ id }, process.env.REFRESH_TOKEN_SECRET, {
+const generateRefreshToken = (founderUserName, foundUserId) => {
+    return jwt.sign({ "username": founderUserName,
+    "user": foundUserId}, 
+    process.env.REFRESH_TOKEN_SECRET, {
         expiresIn: '3d',
     })
 }
@@ -79,11 +83,17 @@ const loginUser = asyncHandler (async (req, res) => {
     // Check for user 
     const foundUser = await User.findOne({ username })
 
+    // Assign username to pass to create token 
+
+    let founderUserName = foundUser.username
+
+    let foundUserId = foundUser.id
+
     if (foundUser && (await bcrypt.compare(password, foundUser.password))){
 
           // Saving refreshToken with current user
 
-          const refToken = generateRefreshToken(foundUser._id)
+          const refToken = generateRefreshToken(founderUserName, foundUserId)
           foundUser.refToken = refToken;
           await foundUser.save();
 
@@ -97,9 +107,9 @@ const loginUser = asyncHandler (async (req, res) => {
         res.json({
 
             _id: foundUser.id,
-            username: foundUser.username,
+            username: founderUserName,
             email: foundUser.email,
-            token: generateAccessToken(foundUser._id)
+            accessToken: generateAccessToken(founderUserName, foundUserId)
 
         })
 
@@ -107,9 +117,46 @@ const loginUser = asyncHandler (async (req, res) => {
         res.status(400)
         throw new Error('Invalid credentials')
     }
-
-    res.json({message: 'Login User'})
 })
+
+
+
+
+// @desc    Logout
+// @route   GET /api/users/logout
+// @access  Private
+
+
+
+const handleLogout = async (req, res) => {
+    // On client, also delete the accessToken
+
+    const cookies = req.cookies;
+    if (!cookies?.jwt) return res.sendStatus(204); //No content
+    
+    const refToken = cookies.jwt;
+
+    console.log("Here is what refresh token finds:   " + await User.findOne({ refToken }).exec())
+
+    // Is refreshToken in db?
+    const foundUser = await User.findOne({ refToken }).exec();
+
+    if (!foundUser) {
+        res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+        return res.sendStatus(204);
+    }
+
+    // Delete refreshToken in db
+    foundUser.refreshToken = '';
+    const result = await foundUser.save();
+    console.log(result);
+
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+    res.sendStatus(204);
+}
+
+
+
 
 
 // @desc    Get user data
@@ -132,5 +179,6 @@ export  {
 
     registerUser,
     loginUser,
-    getMe
+    getMe,
+    handleLogout
 }

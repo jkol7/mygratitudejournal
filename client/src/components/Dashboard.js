@@ -1,5 +1,4 @@
 import React from "react"
-import Nav from "./Nav"
 import Card from "./Card"
 import AddEntry from "./AddEntry"
 import EditEntry from './EditEntry'
@@ -18,7 +17,14 @@ export default function Dashboard(){
     //Gets data from MongoDB and sets it in state
 
     React.useEffect(() => {
-        axios.get('/api').then(res => {
+
+        axios( {
+            url: '/api',
+            method: 'GET',
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true
+        }
+        ).then(res => {
           setData(res.data);
         })
       }, [])
@@ -42,7 +48,7 @@ export default function Dashboard(){
   
    function changedEntry(){
 
-    axios.get('/api').then(res => {
+    axios.get('/api', {withCredentials: true} ).then(res => {
         setData(res.data);
       })
 

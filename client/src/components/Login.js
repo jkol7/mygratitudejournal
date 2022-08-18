@@ -1,7 +1,9 @@
 import React from "react"
 import { useRef, useState, useEffect, useContext } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import AuthContext from '../context/AuthProvider';
+
 
 
 
@@ -9,13 +11,18 @@ export default function Login() {
 
 
     const { setAuth } = useContext(AuthContext)
+
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/"
+
+
     const userRef = useRef();
     const errRef = useRef();
 
     const [username, setUser] = useState('');
     const [password, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
 
 
     // Sets initial focus state
@@ -43,14 +50,12 @@ export default function Login() {
                     withCredentials: true
                 }
             );
-            console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response));
+            console.log("Here's the token" + JSON.stringify(response.data.accessToken));
             const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({ username, password, roles, accessToken });
+            setAuth({ username, password, accessToken });
             setUser('');
             setPwd('');
-            setSuccess(true);
+            navigate(from, {replace: true})
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -71,15 +76,6 @@ export default function Login() {
 
         <div className="mainCard">
 
-{success ? (
-            <section>
-                <h1>You are logged in!</h1>
-                <br />
-                <p>
-                    <a href="/api">Go to Home</a>
-                </p>
-            </section>
-        ) : (
 
         <section>
         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
@@ -111,13 +107,11 @@ export default function Login() {
                         Need an Account?<br />
                         <span className="line">
                             {/*put router link here*/}
-                            <a href="/register">Sign Up</a>
+                            <Link to='/register'>Sign Up</Link>
                         </span>
                     </p>
 
         </section>
-        
-        )}
         </div>
     )
     

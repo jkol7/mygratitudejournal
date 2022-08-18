@@ -5,6 +5,8 @@ import { User } from '../models/userModel.js'
 const protect = asyncHandler( async (req, res, next) => {
     let token
 
+    console.log(req.headers)
+
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         try {
             // Get token from header
@@ -16,7 +18,7 @@ const protect = asyncHandler( async (req, res, next) => {
 
             // Get user from token
 
-            req.user = await User.findById(decoded.id).select('-password')
+            req.user = await User.findOne(decoded)
 
             next()
 

@@ -2,13 +2,13 @@ import React from "react"
 import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import { faUser, faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 
 
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = '/api/users/register';
 
 
 export default function Register() {
@@ -78,7 +78,7 @@ export default function Register() {
             return;
         }
         try {
-            const response = await axios.post(REGISTER_URL,
+            const response = await axios.post('/api/users/register',
                 JSON.stringify({ username, password, email }),
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -116,7 +116,7 @@ export default function Register() {
                 <section>
                     <h1>Success!</h1>
                     <p>
-                        <a href="/api/users/login">Sign In</a>
+                    <Link to='/login'>Sign In</Link>
                     </p>
                 </section>
             ) : (
@@ -124,7 +124,7 @@ export default function Register() {
 
 
         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-        <h1>Register</h1>
+        <h2>Register</h2>
         <form onSubmit={handleSubmit}>        
 
 

@@ -8,28 +8,23 @@ const handleRefreshToken = async (req, res) => {
    
     const refToken = cookies.jwt;
 
-    console.log("This is refresh token: " + refToken)
     const foundUser = await User.findOne({ refToken }).exec();
-
-    console.log(foundUser)
    
     if (!foundUser) return res.sendStatus(403); //Forbidden 
-   
-    // evaluate jwt 
-   //[server] TypeError: secret must be a string or bufferor a KeyObject
    
     jwt.verify(
         refToken,
         process.env.REFRESH_TOKEN_SECRET,
         (err, decoded) => {
            if (err || foundUser.username !== decoded.username) return res.sendStatus(403);
-            const token = jwt.sign(
+            const accessToken = jwt.sign(
+               { "username": decoded.username,
+                "user": decoded.user},
                 process.env.ACCESS_TOKEN_SECRET,
                 { expiresIn: '1h' }
             );
 
-            console.log(token)
-            res.json({ token })
+            res.json({ accessToken })
         }
     );
 }
