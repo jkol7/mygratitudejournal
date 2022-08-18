@@ -37,7 +37,8 @@ const storage = multer.diskStorage({
 
 router.get('/', protect, async (req, res) => {
 
-   await PostGratitude.find({ user: req.user.id })
+
+   await PostGratitude.find({ user: req.user })
         .then((data) => {
             res.json(data)
         })
@@ -97,7 +98,7 @@ router.post('/save', protect, upload.single('imageUrl'), (req, res) => {
         })
 
 
- router.put('/edit', protect, upload.single('imageUrl'), async (req, res) => {
+ router.put('/edit', upload.single('imageUrl'), async (req, res) => {
 
   let newImageUrl
   const id = req.body._id
