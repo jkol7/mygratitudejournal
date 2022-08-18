@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Login from './components/Login.js'
 import Dashboard from './components/Dashboard.js'
 import Register from './components/Register.js'
+import Admin from './components/Admin.js'
 
 export default function App(){
 
@@ -17,6 +18,7 @@ export default function App(){
                     <Route path='/' element={<Dashboard/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/register' element={<Register/>}/>
+                    <Route path='/admin' element={<Admin/>}/>
                 </Routes>
             </div>
         </Router>    

@@ -3,7 +3,9 @@ import Card from "./Card"
 import AddEntry from "./AddEntry"
 import EditEntry from './EditEntry'
 import axios from "axios"
-
+import { useEffect } from 'react'
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Dashboard(){
     
@@ -16,6 +18,39 @@ export default function Dashboard(){
 
     //Gets data from MongoDB and sets it in state
 
+
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+
+    useEffect(() => {
+        let isMounted = true;
+        const controller = new AbortController();
+
+        const getData = async () => {
+            try {
+                const response = await axiosPrivate.get('/api/adminusers', {
+                    signal: controller.signal
+                });
+                console.log(response.data);
+                isMounted && setData(response.data);;
+            } catch (err) {
+                console.error(err);
+                navigate('/login', { state: { from: location }, replace: true });
+            }
+        }
+
+        getData();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        }
+    }, [])
+
+
+    /*
     React.useEffect(() => {
 
         axios( {
@@ -28,6 +63,7 @@ export default function Dashboard(){
           setData(res.data);
         })
       }, [])
+*/
 
 
     //Maps through the data to set props

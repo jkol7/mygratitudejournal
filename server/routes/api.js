@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
   
 
 
-router.get('/', protect, async (req, res) => {
+router.get('/', async (req, res) => {
 
 
    await PostGratitude.find({ user: req.user })
@@ -45,6 +45,22 @@ router.get('/', protect, async (req, res) => {
         .catch((err) => {
           console.log(err)
         })
+
+})
+
+
+
+
+router.get('/adminusers', protect, async (req, res) => {
+
+
+  await PostGratitude.find({ user: req.user })
+       .then((data) => {
+           res.json(data)
+       })
+       .catch((err) => {
+         console.log(err)
+       })
 
 })
 
