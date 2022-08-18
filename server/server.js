@@ -6,7 +6,11 @@ import dotenv from "dotenv"
 import { router } from './routes/api.js'
 import { userRouter } from './routes/userRoutes.js'
 import path from 'path'
+import cookieParser from 'cookie-parser'
 import { fileURLToPath } from 'url';
+
+
+dotenv.config({ path: '../.env'})
 
 const app = express()
 
@@ -16,13 +20,18 @@ app.use(cors())
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: '../.env'})
 
 
 // Created to pass body from form
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+
+
+// Cookie middleware
+
+app.use(cookieParser())
 
 
 // Created for Heroku production

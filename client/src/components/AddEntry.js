@@ -44,6 +44,7 @@ export default function AddEntry(props) {
             url: '/api/save',
             method: 'POST',
             headers: { "Content-Type": "multipart/form-data" },
+            withCredentials: true,
             data: formData
         })
         .then(() => {

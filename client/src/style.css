@@ -26,7 +26,7 @@ nav {
 .titleContainer {
     display: flex;
     gap: 1.5%;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     flex-basis: 60%;
 }

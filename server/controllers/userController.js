@@ -4,6 +4,23 @@ import asyncHandler from 'express-async-handler'
 import { User } from '../models/userModel.js'
 import mongoose from 'mongoose'
 
+
+
+// Generate tokens
+
+const generateAccessToken = (id) => {
+    return jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: '1h',
+    })
+}
+
+
+const generateRefreshToken = (id) => {
+    return jwt.sign({ id }, process.env.REFRESH_TOKEN_SECRET, {
+        expiresIn: '3d',
+    })
+}
+
 // @desc    Register user
 // @route   POST /api/users
 // @access  Public
@@ -43,9 +60,7 @@ const registerUser = asyncHandler (async (req, res) => {
         res.status(201).json({
             _id: user.id,
             username: user.username,
-            email: user.email,
-            token: generateToken(user._id)
-        })
+            email: user.email      })
     } else {
         res.status(400)
         throw new Error('Invalid user data')
@@ -59,20 +74,31 @@ const registerUser = asyncHandler (async (req, res) => {
 
 const loginUser = asyncHandler (async (req, res) => {
 
-    const {email, password} = req.body
+    const {username, password} = req.body
 
-    // Check for user email
-    const user = await User.findOne({ email })
+    // Check for user 
+    const foundUser = await User.findOne({ username })
 
-    if (user && (await bcrypt.compare(password, user.password))){
+    if (foundUser && (await bcrypt.compare(password, foundUser.password))){
         res.json({
 
-            _id: user.id,
-            username: user.username,
-            email: user.email,
-            token: generateToken(user._id)
+            _id: foundUser.id,
+            username: foundUser.username,
+            email: foundUser.email,
+            token: generateAccessToken(foundUser._id)
 
         })
+
+          // Saving refreshToken with current user
+
+          const refToken = generateRefreshToken(foundUser._id)
+          foundUser.refToken = refToken;
+          await foundUser.save();
+
+        // Creates Secure Cookie with refresh token
+        res.cookie('jwt', refToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
+
+
     } else {
         res.status(400)
         throw new Error('Invalid credentials')
@@ -97,14 +123,6 @@ const getMe = asyncHandler (async (req, res) => {
 
 })
 
-
-// Generate token
-
-const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '30d',
-    })
-}
 
 export  {
 
