@@ -1,4 +1,4 @@
-import { User } from '../models/userModel'
+import { User } from '../models/userModel.js'
 import jwt from 'jsonwebtoken'
 
 const handleRefreshToken = async (req, res) => {
@@ -6,25 +6,30 @@ const handleRefreshToken = async (req, res) => {
    
     if (!cookies?.jwt) return res.sendStatus(401);
    
-    const refreshToken = cookies.jwt;
+    const refToken = cookies.jwt;
 
-    const foundUser = await User.findOne({ refreshToken }).exec();
+    console.log("This is refresh token: " + refToken)
+    const foundUser = await User.findOne({ refToken }).exec();
+
+    console.log(foundUser)
    
     if (!foundUser) return res.sendStatus(403); //Forbidden 
    
     // evaluate jwt 
+   //[server] TypeError: secret must be a string or bufferor a KeyObject
    
     jwt.verify(
-        refreshToken,
+        refToken,
         process.env.REFRESH_TOKEN_SECRET,
         (err, decoded) => {
-            if (err || foundUser.username !== decoded.username) return res.sendStatus(403);
-            const roles = Object.values(foundUser.roles);
-            const accessToken = jwt.sign(
+           if (err || foundUser.username !== decoded.username) return res.sendStatus(403);
+            const token = jwt.sign(
                 process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn: '10s' }
+                { expiresIn: '1h' }
             );
-            res.json({ roles, accessToken })
+
+            console.log(token)
+            res.json({ token })
         }
     );
 }

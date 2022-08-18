@@ -80,14 +80,6 @@ const loginUser = asyncHandler (async (req, res) => {
     const foundUser = await User.findOne({ username })
 
     if (foundUser && (await bcrypt.compare(password, foundUser.password))){
-        res.json({
-
-            _id: foundUser.id,
-            username: foundUser.username,
-            email: foundUser.email,
-            token: generateAccessToken(foundUser._id)
-
-        })
 
           // Saving refreshToken with current user
 
@@ -96,8 +88,20 @@ const loginUser = asyncHandler (async (req, res) => {
           await foundUser.save();
 
         // Creates Secure Cookie with refresh token
-        res.cookie('jwt', refToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
+        // Removed secure: true during dev
+
+        res.cookie('jwt', refToken, { httpOnly: true, /*secure: true*,*/ sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
+
+
+        res.json({
+
+            _id: foundUser.id,
+            username: foundUser.username,
+            email: foundUser.email,
+            token: generateAccessToken(foundUser._id)
+
+        })
 
     } else {
         res.status(400)
