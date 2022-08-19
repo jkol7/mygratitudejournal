@@ -51,21 +51,6 @@ router.get('/', protect, async (req, res) => {
 
 
 
-router.get('/adminusers', protect, async (req, res) => {
-
-
-  await PostGratitude.find({ user: req.user })
-       .then((data) => {
-           res.json(data)
-       })
-       .catch((err) => {
-         console.log(err)
-       })
-
-})
-
-
-
 router.get('/:id', (req, res) => {
 
   PostGratitude.findById(req.params.id)
@@ -116,8 +101,6 @@ router.post('/save', protect, upload.single('imageUrl'), (req, res) => {
 
  router.put('/edit', protect, upload.single('imageUrl'), async (req, res) => {
 
-  console.log("Here is req body   ", req.body)
-  console.log("Here is req id   ", req.body._id)
 
 
   let newImageUrl
@@ -130,8 +113,6 @@ router.post('/save', protect, upload.single('imageUrl'), (req, res) => {
   
   const gratitudeId = req.body._id
   const user = await User.findById(req.user)
-
-  console.log("Here is user ID   ", user._id)
 
 
 

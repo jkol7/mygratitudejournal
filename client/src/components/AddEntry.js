@@ -41,7 +41,6 @@ export default function AddEntry(props) {
         props.modalOpenClose()
         
 
-         //Previous axios post 
         axiosPrivate ( {
             url: '/api/save',
             method: 'POST',
@@ -49,13 +48,6 @@ export default function AddEntry(props) {
             withCredentials: true,
             data: formData
         })
-        /*
-        axiosPrivate({
-            method: 'POST',
-            url: '/api/save', 
-            data: formData
-        })
-        */
         .then(() => {
             console.log(`data has been sent to the server from axios: ${formData}`)
         })

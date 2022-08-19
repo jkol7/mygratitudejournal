@@ -84,18 +84,21 @@ import axios from 'axios'
         setDeleteClicked(!deleteClicked)
     }
 
-
-    function triggerDelete(){
-        console.log(props.id)
-         axios.delete(`/api/${props.id}`, {
-            params: {
-                id: props.id
-                }})
-         .then((response) => console.log(response))
-         .then(props.changedEntry())
-         .then(props.editOpenClose())
-         .catch((error) => console.log(error))
-    }
+    async function triggerDelete(){
+        await axiosPrivate ( {
+        url: `/api/${props.id}`,
+        method: 'DELETE',
+        params: {
+            id: props.id
+            }
+    })
+        try {
+            await props.changedEntry()
+            await props.editOpenClose()
+        } catch(error){
+            console.log(error)
+        }
+}
 
 
 return (
