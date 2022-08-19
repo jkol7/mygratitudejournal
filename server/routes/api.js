@@ -165,8 +165,9 @@ router.post('/save', protect, upload.single('imageUrl'), (req, res) => {
 
 router.delete('/:id', protect, async (req, res) => {
 
+
   const gratitude = await PostGratitude.findById(req.params.id)
-  const user = await User.findById(req.user.id)
+  const user = await User.findById(req.user)
     
   // Check for user
 
