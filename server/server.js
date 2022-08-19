@@ -36,7 +36,7 @@ app.use(cookieParser())
 
 // Created for Heroku production
 
-//app.use(express.static(path.join(__dirname, "..", "client", "build")));
+app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
 
 
