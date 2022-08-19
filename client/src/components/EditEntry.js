@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { axiosPrivate } from '../api/axiosPrivate'
 import axios from 'axios'
 
   export default function EditEntry(props){
@@ -7,8 +8,8 @@ import axios from 'axios'
 
     useEffect(() => {
         const getData = async () => {
-        const result = await axios.get(`/api/${props.id}`, {
-        params: {
+        const result = await axios(`/api/${props.id}`,
+        {params: {
             id: props.id
             }})
         setFormData(result.data)
@@ -16,7 +17,7 @@ import axios from 'axios'
         getData()
     }, [])
 
-          
+    
     const [formData, setFormData] = React.useState(
         {
         title: "", 
@@ -58,11 +59,13 @@ import axios from 'axios'
         event.preventDefault()
         props.editOpenClose()
 
-        axios ( {
+
+        axiosPrivate ( {
             url: '/api/edit',
             method: 'PUT',
-            headers: { "Content-Type": "multipart/form-data" },
-            data: formData,
+            headers: { "Content-Type": "multipart/form-data"},
+            withCredentials: true,
+            data: formData
         })
         .then((response) => {
             console.log(response)

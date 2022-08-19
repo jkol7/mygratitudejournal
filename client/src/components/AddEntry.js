@@ -1,10 +1,10 @@
+import axios from 'axios'
 import React from "react"
-import axios from "axios"
-
-axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
-
+import { axiosPrivate } from '../api/axiosPrivate'
 export default function AddEntry(props) {
 
+
+  
 
     const [formData, setFormData] = React.useState(
         {
@@ -34,27 +34,36 @@ export default function AddEntry(props) {
         }})
     }
 
-
+    
 
     function handleSubmit(event){
         event.preventDefault()
         props.modalOpenClose()
         
-        axios( {
+
+         //Previous axios post 
+        axiosPrivate ( {
             url: '/api/save',
             method: 'POST',
-            headers: { "Content-Type": "multipart/form-data" },
+            headers: { "Content-Type": "multipart/form-data"},
             withCredentials: true,
             data: formData
         })
+        /*
+        axiosPrivate({
+            method: 'POST',
+            url: '/api/save', 
+            data: formData
+        })
+        */
         .then(() => {
             console.log(`data has been sent to the server from axios: ${formData}`)
         })
         .then(() => {
             props.changedEntry()
         })
-        .catch(() => {
-            console.log('Data could not be sent from axios')
+        .catch((error) => {
+            console.log('Data could not be sent from axios' + error)
         })
 
     }
@@ -66,7 +75,7 @@ export default function AddEntry(props) {
                     <span className="closeBtn" onClick={props.modalOpenClose}>&times;</span>
                     
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
-
+                
                         <select
                         id='category'
                         name='category'

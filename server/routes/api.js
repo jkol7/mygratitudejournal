@@ -35,9 +35,9 @@ const storage = multer.diskStorage({
   
 
 
-router.get('/', async (req, res) => {
+router.get('/', protect, async (req, res) => {
 
-
+  
    await PostGratitude.find({ user: req.user })
         .then((data) => {
             res.json(data)
@@ -66,7 +66,7 @@ router.get('/adminusers', protect, async (req, res) => {
 
 
 
-router.get('/:id', protect, (req, res) => {
+router.get('/:id', (req, res) => {
 
   PostGratitude.findById(req.params.id)
       .then((data) => {
@@ -97,7 +97,7 @@ router.post('/save', protect, upload.single('imageUrl'), (req, res) => {
         category: req.body.category,
         description: req.body.description,
         imageUrl: newImageUrl,
-        user: req.user.id
+        user: req.user
 
 
     })
@@ -114,19 +114,27 @@ router.post('/save', protect, upload.single('imageUrl'), (req, res) => {
         })
 
 
- router.put('/edit', upload.single('imageUrl'), async (req, res) => {
+ router.put('/edit', protect, upload.single('imageUrl'), async (req, res) => {
+
+  console.log("Here is req body   ", req.body)
+  console.log("Here is req id   ", req.body._id)
+
 
   let newImageUrl
-  const id = req.body._id
 
  if (typeof req.file === "undefined") {
     newImageUrl = req.body.imageUrl
   } else {
     newImageUrl = req.file.filename;
   }
-
-  const user = await User.findById(req.user.id)
   
+  const gratitudeId = req.body._id
+  const user = await User.findById(req.user)
+
+  console.log("Here is user ID   ", user._id)
+
+
+
   // Check for user
 
   if (!user){
@@ -134,17 +142,10 @@ router.post('/save', protect, upload.single('imageUrl'), (req, res) => {
     throw new Error ('User not found')
   }
 
-  // Checks logged in user matches goal user
-
-  if (PostGratitude.user.toString() !== user.id){
-    res.status(401)
-    throw new Error('User not authorized')
-  }
-
-
   try {
-    await PostGratitude.findByIdAndUpdate(id, 
-      {title: req.body.title,
+    await PostGratitude.findByIdAndUpdate(gratitudeId, 
+      { user: user._id,
+        title: req.body.title,
        category: req.body.category,
        description: req.body.description,
        imageUrl: newImageUrl}

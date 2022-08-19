@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 
+
 export default function Dashboard(){
     
     const [modalOpen, setModalOpen] = React.useState(false)
@@ -30,11 +31,10 @@ export default function Dashboard(){
 
         const getData = async () => {
             try {
-                const response = await axiosPrivate.get('/api/adminusers', {
+                const response = await axiosPrivate.get('/api', {
                     signal: controller.signal
                 });
-                console.log(response.data);
-                isMounted && setData(response.data);;
+                isMounted && setData(response.data);
             } catch (err) {
                 console.error(err);
                 navigate('/login', { state: { from: location }, replace: true });
@@ -84,10 +84,9 @@ export default function Dashboard(){
   
    function changedEntry(){
 
-    axios.get('/api', {withCredentials: true} ).then(res => {
+    axiosPrivate('/api').then(res => {
         setData(res.data);
       })
-
    } 
 
 
