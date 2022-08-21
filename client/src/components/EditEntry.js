@@ -23,6 +23,7 @@ import axios from 'axios'
         title: "", 
         category: "",
         description: "",
+        imageName: "",
         imageUrl: ""
          })
 

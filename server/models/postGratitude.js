@@ -11,7 +11,8 @@ const postSchema = mongoose.Schema({
     title: { type: String, required: false},
     category: { type: String, required: false},
     description: { type: String, required: false},
-    imageUrl: { type: String, required: false}    
+    imageName: { type: String, required: false},
+    imageUrl: { type: String, required: false}   
 },
 {collection: 'gratitudejournal'},
 {timestamps: true}

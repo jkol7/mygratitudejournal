@@ -4,7 +4,6 @@ import cors from "cors"
 import mongoose from 'mongoose'
 import dotenv from "dotenv"
 import cookieParser from 'cookie-parser'
-import { S3Client } from "@aws-sdk/client-s3";
 
 
 
@@ -20,19 +19,6 @@ const app = express()
 
 app.use(cors())
 
-
-const bucketName = process.env.BUCKET_NAME
-const bucketRegion = process.env.BUCKET_REGION
-const accessKey = process.env.ACCESS_KEY
-const secretAccessKey = process.env.SECRET_ACCESS_KEY
-
-const s3 = new S3Client({
-    credentials: {
-        accessKeyId: accessKey,
-        secretAccessKey: secretAccessKey
-    },
-    region: bucketRegion
-})
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -53,7 +39,7 @@ app.use(cookieParser())
 
 // Created for Heroku production
 
-app.use(express.static(path.join(__dirname, "..", "client", "build")));
+//app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
 
 

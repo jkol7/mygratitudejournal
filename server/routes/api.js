@@ -1,54 +1,81 @@
 import express from "express"
-import { PostGratitude } from '../models/postGratitude.js'
+import dotenv from "dotenv"
 import multer from "multer"
+import crypto from 'crypto'
+import { PostGratitude } from '../models/postGratitude.js'
 import { protect } from '../middleware/authMiddleware.js'
 import { User } from '../models/userModel.js'
+import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+
+
 
 const router = express.Router()
 
+dotenv.config({ path: '../.env'})
 
+const bucketName = process.env.BUCKET_NAME
+const bucketRegion = process.env.AWS_REGION
+const accessKey = process.env.ACCESS_KEY
+const secretAccessKey = process.env.SECRET_ACCESS_KEY
 
-//define storage for images
-
-
-const storage = multer.diskStorage({
-    //destination for files
-    destination: function (request, file, callback) {
-      callback(null, '../client/public');
-    },
-    
-    //add back the extension
-    filename: function (request, file, callback) {
-      callback(null, Date.now() + file.originalname.split(" ").join("-").toLowerCase());
-    },
-  });
+const s3 = new S3Client({
+    credentials: {
+        accessKeyId: accessKey,
+        secretAccessKey: secretAccessKey
+},
+        region: bucketRegion})
 
   
   const maxSize = 5 * 1024 * 1024;
 
-  //upload parameters for multer
   const upload = multer({
-    storage: storage,
+   // storage: storage,
     limits: { fileSize: maxSize }
     });
 
-  
+  const randomImageName = (bytes = 18) => crypto.randomBytes(bytes).toString('hex')
+
+
+
+
 
 
 router.get('/', protect, async (req, res) => {
 
-  
-   await PostGratitude.find({ user: req.user })
-        .then((data) => {
-            res.json(data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+  try {
+    const data =  await PostGratitude.find({ user: req.user })
 
+    for (let post of data){
+
+    const getObjectParams = {
+    Bucket: bucketName,
+    Key: post.imageName
+    }
+
+
+    const command = new GetObjectCommand(getObjectParams);
+    const signedUrl = await getSignedUrl(s3, command, { expiresIn: 60 });
+
+
+    await PostGratitude.findByIdAndUpdate(post._id, {
+
+    title: post.title,
+    category: post.category,
+    description: post.description,
+    imageName: post.imageName,
+    user: post.user,
+    imageUrl: signedUrl
+  })
+
+}
+  res.json(data)    
+  }
+
+  catch (error){
+    console.log(error)
+  }
 })
-
-
 
 
 router.get('/:id', (req, res) => {
@@ -65,27 +92,67 @@ router.get('/:id', (req, res) => {
 
 
 
+  
 
-router.post('/save', protect, upload.single('imageUrl'), (req, res) => {
 
-  let newImageUrl
+router.post('/save', protect, upload.single('imageUrl'), async (req, res) => {
 
+  
   if (typeof req.file === "undefined") {
-    newImageUrl = "sunset.jpg";
-  } else {
-    newImageUrl = req.file.filename;
+  const newGratitude =  new PostGratitude({
+
+    title: req.body.title,
+    category: req.body.category,
+    description: req.body.description,
+    imageName: "sunset.jpg",
+    imageUrl: "sunset.jpg",
+    user: req.user
+  })
+
+  newGratitude.save((error) => {
+    if (error){
+        res.status(500).json({ msg: 'Sorry, internal server error' })
+        return
+    } 
+       return res.json({
+            msg: 'Your data has been saved!'
+        })
+    })
+}
+
+else {
+  
+  let newImageName
+
+    newImageName = randomImageName();
+    const params = {
+      Bucket: bucketName,
+      Key: newImageName,
+      Body: req.file.buffer,
+      ContentType: req.file.mimetype
+    }
+
+    const command = new PutObjectCommand(params)
+    await s3.send(command)
+
+
+  const getObjectParams = {
+    Bucket: bucketName,
+    Key: newImageName
   }
 
-    const newGratitude = new PostGratitude({
+  const command2 = new GetObjectCommand(getObjectParams);
+  const url = await getSignedUrl(s3, command2, { expiresIn: 20 });
 
-        title: req.body.title,
-        category: req.body.category,
-        description: req.body.description,
-        imageUrl: newImageUrl,
-        user: req.user
+  const newGratitude =  new PostGratitude({
 
-
-    })
+    title: req.body.title,
+    category: req.body.category,
+    description: req.body.description,
+    imageName: newImageName,
+    imageUrl: url,
+    user: req.user
+  })
 
     newGratitude.save((error) => {
         if (error){
@@ -96,11 +163,11 @@ router.post('/save', protect, upload.single('imageUrl'), (req, res) => {
                 msg: 'Your data has been saved!'
             })
         })
+      }
         })
 
 
  router.put('/edit', protect, upload.single('imageUrl'), async (req, res) => {
-
 
 
   let newImageUrl
@@ -108,13 +175,47 @@ router.post('/save', protect, upload.single('imageUrl'), (req, res) => {
  if (typeof req.file === "undefined") {
     newImageUrl = req.body.imageUrl
   } else {
-    newImageUrl = req.file.filename;
+
+
+  if (req.body.imageUrl != "sunset.jpg"){
+    const params = {
+  
+      Bucket: bucketName,
+      Key: req.body.imageName
+    }
+  
+      const command = new DeleteObjectCommand(params)
+  
+      await s3.send(command)
+  }
+
+    let newImageName
+
+    newImageName = randomImageName();
+    const params = {
+      Bucket: bucketName,
+      Key: newImageName,
+      Body: req.file.buffer,
+      ContentType: req.file.mimetype
+    }
+
+    const command = new PutObjectCommand(params)
+    await s3.send(command)
+
+
+  const getObjectParams = {
+    Bucket: bucketName,
+    Key: newImageName
+  }
+
+  const command2 = new GetObjectCommand(getObjectParams);
+  const url = await getSignedUrl(s3, command2, { expiresIn: 20 });
+
+    newImageUrl = url;
   }
   
   const gratitudeId = req.body._id
   const user = await User.findById(req.user)
-
-
 
   // Check for user
 
@@ -164,6 +265,20 @@ router.delete('/:id', protect, async (req, res) => {
     throw new Error('User not authorized')
   }
   
+  // Deletes S3 Image
+
+  if (gratitude.imageUrl != "sunset.jpg"){
+  const params = {
+
+    Bucket: bucketName,
+    Key: gratitude.imageName
+  }
+
+    const command = new DeleteObjectCommand(params)
+
+    await s3.send(command)
+}
+
 
     await PostGratitude.findByIdAndDelete(req.params.id)
       

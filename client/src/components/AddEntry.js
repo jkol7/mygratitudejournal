@@ -11,6 +11,7 @@ export default function AddEntry(props) {
             title: "", 
             category: "",
             description: "",
+            imageName: "",
             imageUrl: ""        }
     )
 
@@ -34,7 +35,7 @@ export default function AddEntry(props) {
         }})
     }
 
-    
+
 
     function handleSubmit(event){
         event.preventDefault()
@@ -49,7 +50,7 @@ export default function AddEntry(props) {
             data: formData
         })
         .then(() => {
-            console.log(`data has been sent to the server from axios: ${formData}`)
+            console.log(`data has been sent to the server from axios, ${formData}`)
         })
         .then(() => {
             props.changedEntry()

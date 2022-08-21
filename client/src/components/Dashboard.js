@@ -2,7 +2,6 @@ import React from "react"
 import Card from "./Card"
 import AddEntry from "./AddEntry"
 import EditEntry from './EditEntry'
-import axios from "axios"
 import { useEffect } from 'react'
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -68,8 +67,7 @@ export default function Dashboard(){
 
     //Maps through the data to set props
 
-
-    React.useEffect(() => {
+      React.useEffect(() => {
 
         setCards(data.map(item => {
             return (<Card
