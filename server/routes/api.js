@@ -44,9 +44,18 @@ const s3 = new S3Client({
 router.get('/', protect, async (req, res) => {
 
   try {
+
     const data =  await PostGratitude.find({ user: req.user })
+    
 
     for (let post of data){
+
+    
+    if (typeof post.imageName  === "undefined") {
+      await PostGratitude.findByIdAndUpdate(post._id, 
+      {imageName : "sunset.jpg"})
+      } 
+
 
     const getObjectParams = {
     Bucket: bucketName,
@@ -55,7 +64,7 @@ router.get('/', protect, async (req, res) => {
 
 
     const command = new GetObjectCommand(getObjectParams);
-    const signedUrl = await getSignedUrl(s3, command, { expiresIn: 60 });
+    const signedUrl = await getSignedUrl(s3, command, { expiresIn: 3600 });
 
 
     await PostGratitude.findByIdAndUpdate(post._id, {
@@ -267,7 +276,7 @@ router.delete('/:id', protect, async (req, res) => {
   
   // Deletes S3 Image
 
-  if (gratitude.imageUrl != "sunset.jpg"){
+  if (gratitude.imageName != "sunset.jpg"){
   const params = {
 
     Bucket: bucketName,
