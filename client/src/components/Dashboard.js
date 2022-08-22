@@ -49,22 +49,6 @@ export default function Dashboard(){
     }, [])
 
 
-    /*
-    React.useEffect(() => {
-
-        axios( {
-            url: '/api',
-            method: 'GET',
-            headers: { "Content-Type": "application/json" },
-            withCredentials: true
-        }
-        ).then(res => {
-          setData(res.data);
-        })
-      }, [])
-*/
-
-
     //Maps through the data to set props
 
       React.useEffect(() => {
@@ -79,10 +63,10 @@ export default function Dashboard(){
             )}))
     }, [data])
 
-  
-   function changedEntry(){
 
-    axiosPrivate('/api').then(res => {
+   async function changedEntry(){
+
+    await axiosPrivate('/api').then(res => {
         setData(res.data);
       })
    } 

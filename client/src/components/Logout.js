@@ -7,10 +7,15 @@ import AuthContext from '../context/AuthProvider';
 
 
 
-export default function Login() {
+export default function Logout() {
 
 
     const { setAuth } = useContext(AuthContext)
+
+    const { auth } = React.useContext(AuthContext)
+
+    console.log(auth)
+
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -78,6 +83,7 @@ export default function Login() {
 
 
         <section>
+        <h4>You have been logged out.</h4>
         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
         <h2>Login</h2>
 
