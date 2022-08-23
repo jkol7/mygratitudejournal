@@ -8,6 +8,8 @@ import AuthContext from '../context/AuthProvider';
 
 export default function Nav() {
 
+    const [loggedIn, setLoggedIn] = React.useState(false)
+
 
     async function handleLogout(){
         await axiosPrivate ( {
@@ -15,12 +17,24 @@ export default function Nav() {
             method: 'GET',
             headers: { "Content-Type": "multipart/form-data"},
         })
-        .then(res => {
-            console.log(res)
-            })
+        try {
+            auth.accessToken = ''
+            setLoggedIn(false)
+        } catch (error){
+            console.log(error)
+        }
         }    
 
+
     const { auth } = React.useContext(AuthContext)
+
+
+    React.useEffect( () =>
+        setLoggedIn(prev =>
+            auth.accessToken ? prev = true : prev = false
+        )
+        , [auth.accessToken])
+
 
     return (
 
@@ -32,21 +46,21 @@ export default function Nav() {
             </Link>
             </div>
             <ul>
-                { auth.accessToken && 
+                { loggedIn && 
                 <li>
-                    <Link to='/logout' onClick={handleLogout}>
+                    <Link to='/login' onClick={handleLogout}>
                     Logout
                     </Link>
                 </li>
                 }
-                { !auth.accessToken &&
+                { !loggedIn &&
                 <li>
                     <Link to='/login'>
                         <FontAwesomeIcon icon={faSignIn}/>
                         Login
                     </Link>
                 </li>}
-                { !auth.accessToken &&
+                { !loggedIn &&
                 <li>
                     <Link to='/register'>
                         <FontAwesomeIcon icon={faUser}/>

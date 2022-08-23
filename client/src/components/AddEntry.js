@@ -1,10 +1,10 @@
-import axios from 'axios'
 import React from "react"
 import { axiosPrivate } from '../api/axiosPrivate'
+
+
+
+
 export default function AddEntry(props) {
-
-
-  
 
     const [formData, setFormData] = React.useState(
         {

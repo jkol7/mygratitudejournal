@@ -36,7 +36,7 @@ export default function Dashboard(){
                 isMounted && setData(response.data);
             } catch (err) {
                 console.error(err);
-                navigate('/login', { state: { from: location }, replace: true });
+                navigate('/register', { state: { from: location }, replace: true });
             }
         }
 

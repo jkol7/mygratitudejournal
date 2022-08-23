@@ -108,13 +108,22 @@ router.post('/save', protect, upload.single('imageUrl'), async (req, res) => {
 
   
   if (typeof req.file === "undefined") {
+
+  const getObjectParams = {
+    Bucket: bucketName,
+    Key: "sunset.jpg"
+  }
+
+  const command2 = new GetObjectCommand(getObjectParams);
+  const url = await getSignedUrl(s3, command2, { expiresIn: 20 });
+
   const newGratitude =  new PostGratitude({
 
     title: req.body.title,
     category: req.body.category,
     description: req.body.description,
     imageName: "sunset.jpg",
-    imageUrl: "sunset.jpg",
+    imageUrl: url,
     user: req.user
   })
 

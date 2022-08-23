@@ -1,5 +1,4 @@
 import React from "react"
-import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaw, faPlane, faPerson} from '@fortawesome/free-solid-svg-icons'
 
@@ -39,7 +38,7 @@ export default function Card (props) {
     return (
         <div className="cardmain">
          <div className="imgcontainer">
-         <img src={props.item.imageUrl}></img>
+         <img src={props.item.imageUrl} alt='Gratitude'></img>
             </div>   
         <div className="rightcontainer">       
             <div className="abovetitle">    
