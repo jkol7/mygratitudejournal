@@ -48,7 +48,6 @@ export default function Card (props) {
 
             <div className="titlemain">
                 <h3>{props.item.title}</h3>
-                {experience && <span>{props.item.startdate} - {props.item.enddate}</span>}
                 <p>{props.item.description}</p>    
             </div>
         </div> 

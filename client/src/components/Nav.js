@@ -45,6 +45,7 @@ export default function Nav() {
             <h1>my gratitude journal</h1>
             </Link>
             </div>
+            <div className='navInfo'>
             <ul>
                 { loggedIn && 
                 <li>
@@ -69,7 +70,7 @@ export default function Nav() {
                 </li>
                  }
             </ul>
-            
+            </div>
         </nav>
 
     )
