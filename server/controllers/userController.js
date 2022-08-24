@@ -136,8 +136,6 @@ const handleLogout = async (req, res) => {
     
     const refToken = cookies.jwt;
 
-    console.log("Here is what refresh token finds:   " + await User.findOne({ refToken }).exec())
-
     // Is refreshToken in db?
     const foundUser = await User.findOne({ refToken }).exec();
 

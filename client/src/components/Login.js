@@ -101,7 +101,7 @@ export default function Login() {
                             value={password}
                             required
                         />
-                        <button>Sign In</button>
+                <button disabled={!username || !password ? true : false}>Sign In</button>
         </form>
         <p>
                         Need an Account?<br />

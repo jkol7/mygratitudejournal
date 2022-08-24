@@ -34,6 +34,7 @@ export default function Dashboard(){
                     signal: controller.signal
                 });
                 isMounted && setData(response.data);
+                await changedEntry()
             } catch (err) {
                 console.error(err);
                 navigate('/register', { state: { from: location }, replace: true });

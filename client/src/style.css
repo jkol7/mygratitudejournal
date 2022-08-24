@@ -313,7 +313,7 @@ img {
 }
 
 
-/*  Register Page  */
+/*  Register and Login Page  */
 
 .mainCard {
 
@@ -322,6 +322,15 @@ img {
     margin-top: 25px;
 }
 
+.registerForm {
+
+
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    margin-bottom: 50px;
+
+}
 
 section {
 
@@ -448,6 +457,5 @@ button {
       
             margin: 0 0 30px 0;
         }
-
     
 }

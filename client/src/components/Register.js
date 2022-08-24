@@ -110,7 +110,7 @@ export default function Register() {
 
     return (
 
-        <div className='mainCard'>
+        <div className='registerForm'>
 
 {success ? (
                 <section>
@@ -120,8 +120,8 @@ export default function Register() {
                     </p>
                 </section>
             ) : (
-        <section>
 
+        <section className='registerForm'>
 
         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
         <h2>Register</h2>
@@ -235,7 +235,6 @@ export default function Register() {
         <p>
                         Already registered?<br />
                         <span className="line">
-                            {/*put router link here*/}
                             <Link to='/login'>Sign In</Link>
                         </span>
                     </p>
