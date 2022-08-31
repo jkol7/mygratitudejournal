@@ -73,8 +73,8 @@ export default function Login() {
 
     return (
 
-
-        <div className="mainCard">
+        <div className="maindiv">
+        <section className="registerForm">
 
 
         <section>
@@ -110,6 +110,7 @@ export default function Login() {
                         </span>
                     </p>
 
+        </section>
         </section>
         </div>
     )

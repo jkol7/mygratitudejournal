@@ -37,7 +37,7 @@ export default function Nav() {
 
 
     return (
-
+        <div className='nav-wrap'>
         <nav>
             <div className='titleContainer'>
             <FontAwesomeIcon icon={faBook} className="faBook" size="lg" beat/>    
@@ -72,7 +72,7 @@ export default function Nav() {
             </ul>
             </div>
         </nav>
-
+        </div>
     )
 
 }

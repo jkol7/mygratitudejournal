@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Login from './components/Login.js'
 import Dashboard from './components/Dashboard.js'
 import Register from './components/Register.js'
+import MainLandingPage from '../src/pages/MainLandingPage'
 
 
 export default function App(){
@@ -12,14 +13,13 @@ export default function App(){
     return (
         <>
         <Router>
-            <div className="maindiv">
                 <Nav/>  
                 <Routes>
                     <Route path='/' element={<Dashboard/>}/>
+                    <Route path='/landing' element={<MainLandingPage/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/register' element={<Register/>}/>
                 </Routes>
-            </div>
         </Router>    
         </>
     )

@@ -109,11 +109,11 @@ export default function Register() {
 
 
     return (
-
+        <div className='maindiv'>
         <div className='registerForm'>
 
 {success ? (
-                <section>
+                <section className='login-form'>
                     <h1>Success!</h1>
                     <p>
                     <Link to='/login'>Sign In</Link>
@@ -241,6 +241,7 @@ export default function Register() {
         </section>
 
             )}
+        </div>
         </div>
     )
     }
