@@ -15,34 +15,39 @@
     filter: drop-shadow(0 0 0.2rem rgb(180, 180, 180));
 
 }
-nav {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    max-height: 100px;
-    max-width: 900px;
-    background-color: #882DF0;
-    box-shadow: 1px 2px #d2d2d2;
-    margin: 0 auto;
+
+ul {
+    list-style: none;
 }
 
 
 /* Main landing page styles */
 
 
+.full-nav {
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    max-height: 100px;
+    width: 100%;
+    background-color: #882DF0;
+    box-shadow: 1px 2px #d2d2d2;
+    margin: 0 auto;
+}
+
  .main-lander-inner-bg {
 
-    width: 1728px;
+    max-width: 1728px;
     height: 600px;
     background-image: url('../public/gratbackground.jpg');
     display: flex;
-
-
 }
 
 .main-lander-top-left {
     width: 40%;
     height: 600px;
+    margin-left: 8%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,6 +57,7 @@ nav {
 
 .main-lander-top-right {
     width: 60%;
+    margin-left: 8%;
     height: 600px;
     display: flex;
     flex-direction: column;
@@ -65,15 +71,17 @@ nav {
 
 }
 
-.titleContainer {
+.full-title-container {
     display: flex;
-    gap: 1.5%;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
-    flex-basis: 65%;
+    flex-basis: 50%;
+    margin-left: 20%;
+    gap: 1%;
 }
 
-nav .navInfo ul {
+
+.full-nav-info ul {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -81,21 +89,85 @@ nav .navInfo ul {
     margin: 0;
   }
 
-nav ul li {
+  .full-nav-info ul li {
     margin-left: 25px;
   }
   
-  nav ul li a:hover {
+  .full-nav-info ul li a:hover {
     color: #777;
   }
   
-  nav ul li a svg {
+  .full-nav-info ul li a svg {
     margin-right: 5px;
   }
 
-ul {
-    list-style: none;
+
+  .main-lander-top-left h2 {
+
+    font-size: 40px;
+    padding: 0;
+    margin: 0;
+    font-weight: 800;
+  }
+
+
+  .main-lander-top-left h4{
+
+    font-size: 20px;
+  }
+
+
+
+
+  
+/* Shorter nav styling */
+
+
+.nav-wrap  {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    max-height: 100px;
+    max-width: 900px;
+    background-color: #882DF0;
+    box-shadow: 1px 2px #d2d2d2;
+    margin: 0 auto;
 }
+
+
+
+.title-container {
+    display: flex;
+    gap: 1.5%;
+    justify-content: flex-end;
+    align-items: center;
+    flex-basis: 65%;
+}
+
+.nav-wrap .nav-info ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0;
+  }
+
+  .nav-wrap ul li {
+    margin-left: 25px;
+  }
+  
+  .nav-wrap ul li a:hover {
+    color: #777;
+  }
+  
+  .nav-wrap ul li a svg {
+    margin-right: 5px;
+  }
+
+
+
+/* Dashboard */
+
 
 .cardmain {
     display: flex;
@@ -189,6 +261,10 @@ img {
     cursor: pointer;
     position: sticky;
 }
+
+
+
+/* Edit modal */
 
 .modal {
     position: absolute;
@@ -476,7 +552,7 @@ button {
         padding: 0;}
 
 
-        nav .navInfo ul {
+        nav .nav-info ul {
             display: flex;
             flex-direction: row;
             justify-content: center;
@@ -499,4 +575,14 @@ button {
             margin: 0 0 30px 0;
         }
     
+
+        .main-lander-inner-bg {
+
+            width: 100%;
+            height: 600px;
+            background-image: url('../public/gratbackground.jpg');
+            display: flex;
+            flex-direction: column;
+        }
+
 }
