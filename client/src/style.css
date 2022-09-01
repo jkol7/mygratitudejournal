@@ -585,9 +585,13 @@ button {
 
     .faBook {
         margin: 0;
-        padding-right: 10px;
+        padding-right: 5px;
     }
 
+
+    .logged-out-link {
+        margin-right: 30px;
+    }
 
     .main-lander-wrapper {
         display: flex;
@@ -695,7 +699,7 @@ button {
     }
 }
 
-@media all and (max-width: 475px)
+@media all and (max-width: 510px)
 {
 
     .full-nav,

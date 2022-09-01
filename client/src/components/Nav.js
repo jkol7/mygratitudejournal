@@ -44,14 +44,14 @@ export default function Nav() {
         <nav className={currentPath !== '/' ? 'nav-wrap' : 'full-nav'}>
             <div className={currentPath !== '/' ? 'title-container' : 'full-title-container'}>
             <FontAwesomeIcon icon={faBook} className="faBook" size="lg" beat/>    
-            <Link to='/' style={{ textDecoration: 'none' }}>
+            <Link to='/dashboard' style={{ textDecoration: 'none' }}>
             <h1>my gratitude journal</h1>
             </Link>
             </div>
             <div className={currentPath !== '/' ? 'nav-info' : 'full-nav-info'}>
             <ul>
                 { loggedIn && 
-                <li>
+                <li className='logged-out-link'>
                     <Link to='/login' onClick={handleLogout}>
                     Logout
                     </Link>

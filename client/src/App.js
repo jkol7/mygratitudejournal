@@ -4,8 +4,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Login from './components/Login.js'
 import Dashboard from './components/Dashboard.js'
 import Register from './components/Register.js'
-import MainLandingPage from '../src/pages/MainLandingPage'
-
+import MainLandingPage from './components/MainLandingPage'
 
 export default function App(){
 

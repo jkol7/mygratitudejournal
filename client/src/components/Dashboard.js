@@ -30,7 +30,7 @@ export default function Dashboard(){
 
         const getData = async () => {
             try {
-                const response = await axiosPrivate.get('/api', {
+                const response = await axiosPrivate.get('/api/dashboard', {
                     signal: controller.signal
                 });
                 isMounted && setData(response.data);
@@ -67,7 +67,7 @@ export default function Dashboard(){
 
    async function changedEntry(){
 
-    await axiosPrivate('/api').then(res => {
+    await axiosPrivate('/api/dashboard').then(res => {
         setData(res.data);
       })
    } 
