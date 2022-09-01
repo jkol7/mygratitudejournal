@@ -108,18 +108,43 @@ ul {
     padding: 0;
     margin: 0;
     font-weight: 800;
+    background: #882DF0;
+    background: linear-gradient(to right, #882DF0 0%, #CF00AC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
 
   .main-lander-top-left h4{
 
     font-size: 20px;
+    color: #481780;
+    margin-top: 15px;
   }
 
+  .landing-top-button {
+    
+        background-color: white;
+        color: #882DF0;
+        padding: 15px 40px;
+        border: 2px solid #882DF0;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: 600;
+        filter: drop-shadow(0 0 0.15rem rgb(180, 180, 180));
+        cursor: pointer;
+        position: sticky;
+    }
 
 
+    .landing-top-button:hover {
+    
+        background-color: #882DF0;
+        color: white ;
+        border: 2px solid purple;
+    }
 
-  
+
 /* Shorter nav styling */
 
 
@@ -583,6 +608,8 @@ button {
             background-image: url('../public/gratbackground.jpg');
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
 }
