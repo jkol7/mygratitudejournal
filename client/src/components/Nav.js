@@ -40,6 +40,7 @@ export default function Nav() {
 
 
     return (
+        <div className='bg-div'>
         <nav className={currentPath !== '/landing' ? 'nav-wrap' : 'full-nav'}>
             {console.log(currentPath)}
             <div className={currentPath !== '/landing' ? 'title-container' : 'full-title-container'}>
@@ -60,21 +61,20 @@ export default function Nav() {
                 { !loggedIn &&
                 <li>
                     <Link to='/login'>
-                        <FontAwesomeIcon icon={faSignIn}/>
                         Login
                     </Link>
                 </li>}
                 { !loggedIn &&
                 <li>
                     <Link to='/register'>
-                        <FontAwesomeIcon icon={faUser}/>
-                        Register
+                        <button>Register</button>
                     </Link>
                 </li>
                  }
             </ul>
             </div>
         </nav>
+        </div>
     )
 
 }

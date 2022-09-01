@@ -86,7 +86,7 @@ export default function Dashboard(){
     }
 
     return (
-      
+        <div className='bg-div'>
         <div className="maindiv">
         {cards}
         <div className="buttonsection">
@@ -98,6 +98,7 @@ export default function Dashboard(){
         editOpenClose={editOpenClose}
         id={editID}
         changedEntry={changedEntry}/>}
+        </div>
         </div>
         </div>
     )

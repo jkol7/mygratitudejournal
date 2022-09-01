@@ -72,7 +72,7 @@ export default function Login() {
 
 
     return (
-
+        <div className='bg-div'>
         <div className="maindiv">
         <section className="registerForm">
 
@@ -112,6 +112,7 @@ export default function Login() {
 
         </section>
         </section>
+        </div>
         </div>
     )
     

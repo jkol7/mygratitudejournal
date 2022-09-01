@@ -109,6 +109,7 @@ export default function Register() {
 
 
     return (
+        <div className='bg-div'>
         <div className='maindiv'>
         <div className='registerForm'>
 
@@ -241,6 +242,7 @@ export default function Register() {
         </section>
 
             )}
+        </div>
         </div>
         </div>
     )
