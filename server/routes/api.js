@@ -16,7 +16,8 @@ const router = express.Router()
     });
 
 
-router.get('/', protect, getGratitudes)    
+
+router.get('/dashboard', protect, getGratitudes)    
 
 router.get('/:id',  protect, getSingleGratitude)
 
