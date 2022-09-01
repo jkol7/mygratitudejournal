@@ -1,6 +1,6 @@
 import React from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBook, faSignIn, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faBook } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { axiosPrivate } from '../api/axiosPrivate'
@@ -41,15 +41,14 @@ export default function Nav() {
 
     return (
         <div className='bg-div'>
-        <nav className={currentPath !== '/landing' ? 'nav-wrap' : 'full-nav'}>
-            {console.log(currentPath)}
-            <div className={currentPath !== '/landing' ? 'title-container' : 'full-title-container'}>
+        <nav className={currentPath !== '/' ? 'nav-wrap' : 'full-nav'}>
+            <div className={currentPath !== '/' ? 'title-container' : 'full-title-container'}>
             <FontAwesomeIcon icon={faBook} className="faBook" size="lg" beat/>    
             <Link to='/' style={{ textDecoration: 'none' }}>
             <h1>my gratitude journal</h1>
             </Link>
             </div>
-            <div className={currentPath !== '/landing' ? 'nav-info' : 'full-nav-info'}>
+            <div className={currentPath !== '/' ? 'nav-info' : 'full-nav-info'}>
             <ul>
                 { loggedIn && 
                 <li>

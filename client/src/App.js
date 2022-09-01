@@ -15,8 +15,8 @@ export default function App(){
         <Router>
                 <Nav/>  
                 <Routes>
-                    <Route path='/' element={<Dashboard/>}/>
-                    <Route path='/landing' element={<MainLandingPage/>}/>
+                    <Route path='/' element={<MainLandingPage/>}/>
+                    <Route path='/dashboard' element={<Dashboard/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/register' element={<Register/>}/>
                 </Routes>
