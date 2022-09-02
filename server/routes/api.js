@@ -21,7 +21,7 @@ const upload = multer({
 
 router.get('/dashboard', protect, getGratitudes);
 
-router.get('/:id', protect, getSingleGratitude);
+router.get('/:id', getSingleGratitude);
 
 router.post('/save', upload.single('imageUrl'), protect, addGratitude);
 

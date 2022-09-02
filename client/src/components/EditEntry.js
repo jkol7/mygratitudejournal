@@ -7,7 +7,7 @@ export default function EditEntry(props) {
 
   useEffect(() => {
     const getData = async () => {
-      const result = await axios(`/api/${props.id}`, {
+      const result = await axios(`api/${props.id}`, {
         params: {
           id: props.id,
         },

@@ -5,6 +5,8 @@
 
 .bg-div {
   background-color: #f0ebeb;
+  height: 100%;
+  width: 100%;
 }
 
 .maindiv {
@@ -37,7 +39,11 @@ ul {
 .main-lander-inner-bg {
   max-width: 1728px;
   height: 600px;
-  background-image: url('../public/gratbackground.jpg');
+  background: url('../public/gratbackground.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .main-lander-wrapper {

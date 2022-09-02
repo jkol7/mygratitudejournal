@@ -74,7 +74,7 @@ const getGratitudes = async (req, res) => {
 
 const getSingleGratitude = async (req, res) => {
   try {
-    await PostGratitude.findById(req.params.id);
+    const data = await PostGratitude.findById(req.params.id);
     return res.json(data);
   } catch (error) {
     console.log(error);
