@@ -1,17 +1,11 @@
 * {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   box-sizing: border-box;
 }
 
 html,
 body {
-  margin: 0;
-  height: 100%;
-}
-body {
   min-height: 100%;
-}
-.bg-div {
   height: 100%;
   background-color: #f0ebeb;
 }
@@ -45,7 +39,9 @@ ul {
 
 .main-lander-inner-bg {
   height: 600px;
-  background: url('../public/gratbackground.jpg') no-repeat center center fixed;
+  width: 100%;
+  background: url("../public/gratbackground-wave.jpg") no-repeat center center
+    fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -230,7 +226,7 @@ ul {
   margin-top: 20px;
   display: flex;
   gap: 12px;
-  font-family: 'Raleway';
+  font-family: "Raleway";
   display: flex;
   align-items: center;
 }
@@ -263,7 +259,7 @@ h1 {
 }
 
 p {
-  font-family: 'Raleway';
+  font-family: "Raleway";
   font-size: 15px;
   line-height: 150%;
 }
@@ -439,11 +435,11 @@ a:visited {
   color: #fff;
 }
 
-input[type='text'],
-input[type='password'],
+input[type="text"],
+input[type="password"],
 button,
 textarea {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 16px;
   padding: 0.25rem;
   border-radius: 0.5rem;

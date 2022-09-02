@@ -1,16 +1,16 @@
-import React from 'react';
-import Card from './Card';
-import AddEntry from './AddEntry';
-import EditEntry from './EditEntry';
-import {useEffect} from 'react';
-import useAxiosPrivate from '../hooks/useAxiosPrivate';
-import {useNavigate, useLocation} from 'react-router-dom';
+import React from "react";
+import Card from "./Card";
+import AddEntry from "./AddEntry";
+import EditEntry from "./EditEntry";
+import { useEffect } from "react";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Dashboard() {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [editOpen, setEditOpen] = React.useState(false);
   const [data, setData] = React.useState([]);
-  const [editID, setEditID] = React.useState('');
+  const [editID, setEditID] = React.useState("");
   const [cards, setCards] = React.useState([]);
 
   //Gets data from MongoDB and sets it in state
@@ -25,14 +25,14 @@ export default function Dashboard() {
 
     const getData = async () => {
       try {
-        const response = await axiosPrivate.get('/api/dashboard', {
+        const response = await axiosPrivate.get("/api/dashboard", {
           signal: controller.signal,
         });
         isMounted && setData(response.data);
         await changedEntry();
       } catch (err) {
         console.error(err);
-        navigate('/register', {state: {from: location}, replace: true});
+        navigate("/register", { state: { from: location }, replace: true });
       }
     };
 
@@ -62,7 +62,7 @@ export default function Dashboard() {
   }, [data]);
 
   async function changedEntry() {
-    await axiosPrivate('/api/dashboard').then((res) => {
+    await axiosPrivate("/api/dashboard").then((res) => {
       setData(res.data);
     });
   }
@@ -79,25 +79,23 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="bg-div">
-      <div className="maindiv">
-        {cards}
-        <div className="buttonsection">
-          <button onClick={modalOpenClose}>Add New</button>
-          {modalOpen && (
-            <AddEntry
-              modalOpenClose={modalOpenClose}
-              changedEntry={changedEntry}
-            />
-          )}
-          {editOpen && (
-            <EditEntry
-              editOpenClose={editOpenClose}
-              id={editID}
-              changedEntry={changedEntry}
-            />
-          )}
-        </div>
+    <div className="maindiv">
+      {cards}
+      <div className="buttonsection">
+        <button onClick={modalOpenClose}>Add New</button>
+        {modalOpen && (
+          <AddEntry
+            modalOpenClose={modalOpenClose}
+            changedEntry={changedEntry}
+          />
+        )}
+        {editOpen && (
+          <EditEntry
+            editOpenClose={editOpenClose}
+            id={editID}
+            changedEntry={changedEntry}
+          />
+        )}
       </div>
     </div>
   );

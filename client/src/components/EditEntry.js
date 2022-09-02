@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import {axiosPrivate} from '../api/axiosPrivate';
-import axios from 'axios';
+import React, { useEffect } from "react";
+import { axiosPrivate } from "../api/axiosPrivate";
+import axios from "axios";
 
 export default function EditEntry(props) {
   // Gets the data of the entry clicked
@@ -18,17 +18,17 @@ export default function EditEntry(props) {
   }, []);
 
   const [formData, setFormData] = React.useState({
-    title: '',
-    category: '',
-    description: '',
-    imageName: '',
-    imageUrl: '',
+    title: "",
+    category: "",
+    description: "",
+    imageName: "",
+    imageUrl: "",
   });
 
   const [deleteClicked, setDeleteClicked] = React.useState(false);
 
   function handleChange(event) {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
@@ -53,9 +53,9 @@ export default function EditEntry(props) {
     props.editOpenClose();
 
     axiosPrivate({
-      url: '/api/edit',
-      method: 'PUT',
-      headers: {'Content-Type': 'multipart/form-data'},
+      url: "/api/edit",
+      method: "PUT",
+      headers: { "Content-Type": "multipart/form-data" },
       withCredentials: true,
       data: formData,
     })
@@ -77,7 +77,7 @@ export default function EditEntry(props) {
   async function triggerDelete() {
     await axiosPrivate({
       url: `/api/${props.id}`,
-      method: 'DELETE',
+      method: "DELETE",
       params: {
         id: props.id,
       },

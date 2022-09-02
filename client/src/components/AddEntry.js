@@ -1,17 +1,17 @@
-import React from 'react';
-import {axiosPrivate} from '../api/axiosPrivate';
+import React from "react";
+import { axiosPrivate } from "../api/axiosPrivate";
 
 export default function AddEntry(props) {
   const [formData, setFormData] = React.useState({
-    title: '',
-    category: '',
-    description: '',
-    imageName: '',
-    imageUrl: '',
+    title: "",
+    category: "",
+    description: "",
+    imageName: "",
+    imageUrl: "",
   });
 
   function handleChange(event) {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
@@ -34,9 +34,9 @@ export default function AddEntry(props) {
     props.modalOpenClose();
 
     axiosPrivate({
-      url: '/api/save',
-      method: 'POST',
-      headers: {'Content-Type': 'multipart/form-data'},
+      url: "/api/save",
+      method: "POST",
+      headers: { "Content-Type": "multipart/form-data" },
       withCredentials: true,
       data: formData,
     })
@@ -47,7 +47,7 @@ export default function AddEntry(props) {
         props.changedEntry();
       })
       .catch((error) => {
-        console.log('Data could not be sent from axios' + error);
+        console.log("Data could not be sent from axios" + error);
       });
   }
 

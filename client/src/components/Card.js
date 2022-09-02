@@ -1,6 +1,6 @@
-import React from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faPaw, faPlane, faPerson} from '@fortawesome/free-solid-svg-icons';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaw, faPlane, faPerson } from "@fortawesome/free-solid-svg-icons";
 
 export default function Card(props) {
   let experience;
@@ -8,13 +8,13 @@ export default function Card(props) {
 
   // Determines what icons and details are shown. Ex. Date for experiences.
 
-  if (props.item.category === 'experience') {
+  if (props.item.category === "experience") {
     experience = true;
   }
 
-  if (props.item.category === 'pet') {
+  if (props.item.category === "pet") {
     iconType = faPaw;
-  } else if (props.item.category === 'person') {
+  } else if (props.item.category === "person") {
     iconType = faPerson;
   } else iconType = faPlane;
 
@@ -32,7 +32,7 @@ export default function Card(props) {
       <div className="rightcontainer">
         <div className="abovetitle">
           <span>
-            <FontAwesomeIcon icon={iconType} color="#FF0AD6" />{' '}
+            <FontAwesomeIcon icon={iconType} color="#FF0AD6" />{" "}
             {props.item.category.toUpperCase()}
           </span>
           <span onClick={editClick}>Edit</span>
