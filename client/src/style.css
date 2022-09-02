@@ -3,11 +3,17 @@
   box-sizing: border-box;
 }
 
-.bg-div {
-  background-color: #f0ebeb;
-  width: 100%;
+html,
+body {
   margin: 0;
   height: 100%;
+}
+body {
+  min-height: 100%;
+}
+.bg-div {
+  height: 100%;
+  background-color: #f0ebeb;
 }
 
 .maindiv {
