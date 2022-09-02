@@ -22,6 +22,11 @@ export default function Card(props) {
 
   function editClick() {
     props.editOpenClose(props.id);
+    window.scrollTo({
+      top: 100,
+      left: 100,
+      behavior: "smooth",
+    });
   }
 
   return (
