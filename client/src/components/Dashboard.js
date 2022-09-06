@@ -67,6 +67,15 @@ export default function Dashboard() {
     });
   }
 
+  function clickAddEntry() {
+    window.scrollTo({
+      top: 100,
+      left: 100,
+      behavior: "smooth",
+    });
+    modalOpenClose();
+  }
+
   //Clicking the button to add an entry toggles this modal. So does clicking the "X" inside the modal.
 
   function modalOpenClose() {
@@ -82,7 +91,7 @@ export default function Dashboard() {
     <div className="maindiv">
       {cards}
       <div className="buttonsection">
-        <button onClick={modalOpenClose}>Add New</button>
+        <button onClick={clickAddEntry}>Add New</button>
         {modalOpen && (
           <AddEntry
             modalOpenClose={modalOpenClose}
