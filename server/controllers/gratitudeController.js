@@ -1,18 +1,19 @@
-import crypto from 'crypto';
-import {PostGratitude} from '../models/postGratitude.js';
-import {User} from '../models/userModel.js';
+import crypto from "crypto";
+import { PostGratitude } from "../models/postGratitude.js";
+import { User } from "../models/userModel.js";
 import {
   S3Client,
   PutObjectCommand,
   GetObjectCommand,
   DeleteObjectCommand,
-} from '@aws-sdk/client-s3';
-import {getSignedUrl} from '@aws-sdk/s3-request-presigner';
-import dotenv from 'dotenv';
+} from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import dotenv from "dotenv";
+import axios from "axios";
 
 // Sets up A3 bucket for images
 
-dotenv.config({path: '../.env'});
+dotenv.config({ path: "../.env" });
 
 const bucketName = process.env.BUCKET_NAME;
 const bucketRegion = process.env.AWS_REGION;
@@ -28,7 +29,7 @@ const s3 = new S3Client({
 });
 
 const randomImageName = (bytes = 18) =>
-  crypto.randomBytes(bytes).toString('hex');
+  crypto.randomBytes(bytes).toString("hex");
 
 // @desc    Get gratitudes data and refresh A3 signed image URLs
 // @route   GET /api/
@@ -36,12 +37,12 @@ const randomImageName = (bytes = 18) =>
 
 const getGratitudes = async (req, res) => {
   try {
-    const data = await PostGratitude.find({user: req.user});
+    const data = await PostGratitude.find({ user: req.user });
 
     for (let post of data) {
-      if (typeof post.imageName === 'undefined') {
+      if (typeof post.imageName === "undefined") {
         await PostGratitude.findByIdAndUpdate(post._id, {
-          imageName: 'sunset.jpg',
+          imageName: "sunset.jpg",
         });
       }
 
@@ -51,7 +52,7 @@ const getGratitudes = async (req, res) => {
       };
 
       const command = new GetObjectCommand(getObjectParams);
-      const signedUrl = await getSignedUrl(s3, command, {expiresIn: 3600});
+      const signedUrl = await getSignedUrl(s3, command, { expiresIn: 3600 });
 
       await PostGratitude.findByIdAndUpdate(post._id, {
         title: post.title,
@@ -86,31 +87,31 @@ const getSingleGratitude = async (req, res) => {
 // @access  Private
 
 const addGratitude = async (req, res) => {
-  if (typeof req.file === 'undefined') {
+  if (typeof req.file === "undefined") {
     const getObjectParams = {
       Bucket: bucketName,
-      Key: 'sunset.jpg',
+      Key: "sunset.jpg",
     };
 
     const command2 = new GetObjectCommand(getObjectParams);
-    const url = await getSignedUrl(s3, command2, {expiresIn: 20});
+    const url = await getSignedUrl(s3, command2, { expiresIn: 20 });
 
     const newGratitude = new PostGratitude({
       title: req.body.title,
       category: req.body.category,
       description: req.body.description,
-      imageName: 'sunset.jpg',
+      imageName: "sunset.jpg",
       imageUrl: url,
       user: req.user,
     });
 
     newGratitude.save((error) => {
       if (error) {
-        res.status(500).json({msg: 'Sorry, internal server error'});
+        res.status(500).json({ msg: "Sorry, internal server error" });
         return;
       }
       return res.json({
-        msg: 'Your data has been saved!',
+        msg: "Your data has been saved!",
       });
     });
   } else {
@@ -133,7 +134,7 @@ const addGratitude = async (req, res) => {
     };
 
     const command2 = new GetObjectCommand(getObjectParams);
-    const url = await getSignedUrl(s3, command2, {expiresIn: 20});
+    const url = await getSignedUrl(s3, command2, { expiresIn: 20 });
 
     const newGratitude = new PostGratitude({
       title: req.body.title,
@@ -146,11 +147,11 @@ const addGratitude = async (req, res) => {
 
     newGratitude.save((error) => {
       if (error) {
-        res.status(500).json({msg: 'Sorry, internal server error'});
+        res.status(500).json({ msg: "Sorry, internal server error" });
         return;
       }
       return res.json({
-        msg: 'Your data has been saved!',
+        msg: "Your data has been saved!",
       });
     });
   }
@@ -163,10 +164,10 @@ const addGratitude = async (req, res) => {
 const editGratitude = async (req, res) => {
   let newImageUrl;
 
-  if (typeof req.file === 'undefined') {
+  if (typeof req.file === "undefined") {
     newImageUrl = req.body.imageUrl;
   } else {
-    if (req.body.imageUrl != 'sunset.jpg') {
+    if (req.body.imageUrl != "sunset.jpg") {
       const params = {
         Bucket: bucketName,
         Key: req.body.imageName,
@@ -196,7 +197,7 @@ const editGratitude = async (req, res) => {
     };
 
     const command2 = new GetObjectCommand(getObjectParams);
-    const url = await getSignedUrl(s3, command2, {expiresIn: 20});
+    const url = await getSignedUrl(s3, command2, { expiresIn: 20 });
 
     newImageUrl = url;
   }
@@ -208,7 +209,7 @@ const editGratitude = async (req, res) => {
 
   if (!user) {
     res.status(401);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 
   try {
@@ -224,7 +225,7 @@ const editGratitude = async (req, res) => {
   }
 
   return res.json({
-    msg: 'Your data has been saved!',
+    msg: "Your data has been saved!",
   });
 };
 
@@ -240,19 +241,19 @@ const deleteGratitude = async (req, res) => {
 
   if (!user) {
     res.status(401);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 
   // Checks logged in user matches goal user
 
   if (gratitude.user.toString() !== user.id) {
     res.status(401);
-    throw new Error('User not authorized');
+    throw new Error("User not authorized");
   }
 
   // Deletes S3 Image
 
-  if (gratitude.imageName != 'sunset.jpg') {
+  if (gratitude.imageName != "sunset.jpg") {
     const params = {
       Bucket: bucketName,
       Key: gratitude.imageName,
@@ -265,7 +266,29 @@ const deleteGratitude = async (req, res) => {
 
   await PostGratitude.findByIdAndDelete(req.params.id);
 
-  res.status(200).json('Gratitude deleted');
+  res.status(200).json("Gratitude deleted");
+};
+
+// @desc    Calls RapidAPI to get gratitude inspiration
+// @route   GET api/generateinspiration
+// @access  Public
+
+const generateInspiration = async (req, res) => {
+  axios({
+    method: "GET",
+    url: "https://gratitude-questions.p.rapidapi.com/question",
+    headers: {
+      "X-RapidAPI-Key": RAPID_API_KEY_GRATITUDES,
+      "X-RapidAPI-Host": "gratitude-questions.p.rapidapi.com",
+    },
+  });
+
+  try {
+    const data = res.json();
+    res.send(data);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export {
@@ -274,4 +297,5 @@ export {
   getSingleGratitude,
   editGratitude,
   deleteGratitude,
+  generateInspiration,
 };

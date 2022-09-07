@@ -5,6 +5,8 @@ import EditEntry from "./EditEntry";
 import { useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
+import { InspirationContext } from "../context/InspirationProvider";
+import Inspiration from "./Inspiration";
 
 export default function Dashboard() {
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -12,6 +14,7 @@ export default function Dashboard() {
   const [data, setData] = React.useState([]);
   const [editID, setEditID] = React.useState("");
   const [cards, setCards] = React.useState([]);
+  const { inspiration } = React.useContext(InspirationContext);
 
   //Gets data from MongoDB and sets it in state
 
@@ -76,8 +79,6 @@ export default function Dashboard() {
     modalOpenClose();
   }
 
-  //Clicking the button to add an entry toggles this modal. So does clicking the "X" inside the modal.
-
   function modalOpenClose() {
     setModalOpen((prevModalOpen) => !prevModalOpen);
   }
@@ -89,6 +90,7 @@ export default function Dashboard() {
 
   return (
     <div className="maindiv">
+      {inspiration && <Inspiration />}
       {cards}
       <div className="buttonsection">
         <button onClick={clickAddEntry}>Add New</button>

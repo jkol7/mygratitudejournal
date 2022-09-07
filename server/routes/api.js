@@ -1,13 +1,14 @@
-import express from 'express';
-import {protect} from '../middleware/authMiddleware.js';
+import express from "express";
+import { protect } from "../middleware/authMiddleware.js";
 import {
   getGratitudes,
   addGratitude,
   getSingleGratitude,
   editGratitude,
   deleteGratitude,
-} from '../controllers/gratitudeController.js';
-import multer from 'multer';
+  generateInspiration,
+} from "../controllers/gratitudeController.js";
+import multer from "multer";
 
 const router = express.Router();
 
@@ -16,17 +17,19 @@ const router = express.Router();
 const maxSize = 5 * 1024 * 1024;
 
 const upload = multer({
-  limits: {fileSize: maxSize},
+  limits: { fileSize: maxSize },
 });
 
-router.get('/dashboard', protect, getGratitudes);
+router.get("/dashboard", protect, getGratitudes);
 
-router.get('/:id', getSingleGratitude);
+router.get("/:id", getSingleGratitude);
 
-router.post('/save', upload.single('imageUrl'), protect, addGratitude);
+router.get("/generateinspiration", generateInspiration);
 
-router.put('/edit', upload.single('imageUrl'), protect, editGratitude);
+router.post("/save", upload.single("imageUrl"), protect, addGratitude);
 
-router.delete('/:id', protect, deleteGratitude);
+router.put("/edit", upload.single("imageUrl"), protect, editGratitude);
 
-export {router};
+router.delete("/:id", protect, deleteGratitude);
+
+export { router };

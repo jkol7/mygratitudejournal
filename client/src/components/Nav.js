@@ -4,10 +4,15 @@ import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { axiosPrivate } from "../api/axiosPrivate";
+import { InspirationContext } from "../context/InspirationProvider";
 import AuthContext from "../context/AuthProvider";
 
 export default function Nav() {
   const [loggedIn, setLoggedIn] = React.useState(false);
+
+  const { auth } = React.useContext(AuthContext);
+
+  const { setInspiration } = React.useContext(InspirationContext);
 
   const currentPath = useLocation().pathname;
 
@@ -25,8 +30,6 @@ export default function Nav() {
     }
   }
 
-  const { auth } = React.useContext(AuthContext);
-
   React.useEffect(
     () =>
       setLoggedIn((prev) =>
@@ -34,6 +37,10 @@ export default function Nav() {
       ),
     [auth.accessToken]
   );
+
+  const toggleInspiration = () => {
+    return setInspiration((prev) => !prev);
+  };
 
   return (
     <nav className={currentPath !== "/" ? "nav-wrap" : "full-nav"}>
@@ -49,6 +56,11 @@ export default function Nav() {
       </div>
       <div className={currentPath !== "/" ? "nav-info" : "full-nav-info"}>
         <ul>
+          {loggedIn && (
+            <li className="logged-out-link" onClick={toggleInspiration}>
+              <button id="nav-inspiration">Inspiration</button>
+            </li>
+          )}
           {loggedIn && (
             <li className="logged-out-link">
               <Link to="/login" onClick={handleLogout}>
