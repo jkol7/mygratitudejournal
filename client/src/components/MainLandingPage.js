@@ -21,17 +21,25 @@ function MainLandingPage() {
           <div className="benefit-text-container">
             <img src="mentalhealth.svg" />
             <h4>Improve mental health</h4>
-            <p>Gratitudes can improve mental health.</p>
+            <p>
+              Over time gratitude practice has shown to foster positive
+              well-being and less anxiety.
+            </p>
           </div>
           <div className="benefit-text-container">
             <img src="relationships.svg" />
-            <h4>Build stronger relationships</h4>
-            <p>Gratitudes can improve relationships.</p>
+            <h4>Build strong relationships</h4>
+            <p>
+              Studies have demonstraed gratitude can increase relationship
+              satisfaction.
+            </p>
           </div>
           <div className="benefit-text-container">
             <img src="sleep.svg" />
-            <h4>Get quality sleep</h4>
-            <p>Gratitudes can help you sleep better</p>
+            <h4>Sleep better and longer</h4>
+            <p>
+              Soothe your nervous system before bed for better and longer sleep.
+            </p>
           </div>
         </div>
       </div>
