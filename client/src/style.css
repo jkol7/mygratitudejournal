@@ -10,6 +10,12 @@ body {
   background-color: #f0ebeb;
 }
 
+p {
+  font-family: "Raleway";
+  font-size: 15px;
+  line-height: 150%;
+}
+
 .maindiv {
   max-width: 900px;
   min-height: 650px;
@@ -274,11 +280,6 @@ h1 {
   color: rgb(245, 245, 245);
 }
 
-p {
-  font-family: "Raleway";
-  font-size: 15px;
-  line-height: 150%;
-}
 img {
   width: 120px;
   height: 160px;
@@ -336,6 +337,13 @@ img {
   text-align: center;
   justify-content: center;
   align-items: center;
+  padding: 0 100px;
+}
+
+.modal-content-inspiration p {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
 }
 
 .closeBtn {
@@ -618,6 +626,16 @@ button {
     justify-content: center;
     align-items: center;
     max-width: 340px;
+  }
+
+  .modal-content-inspiration {
+    padding: 0 20px;
+  }
+
+  .modal-content-inspiration p {
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
   }
 
   /* Dashboard mobile styling */

@@ -22,9 +22,9 @@ const upload = multer({
 
 router.get("/dashboard", protect, getGratitudes);
 
-router.get("/:id", getSingleGratitude);
-
 router.get("/generateinspiration", generateInspiration);
+
+router.get("/:id", getSingleGratitude);
 
 router.post("/save", upload.single("imageUrl"), protect, addGratitude);
 

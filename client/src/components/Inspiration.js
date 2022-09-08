@@ -10,15 +10,27 @@ const Inspiration = () => {
 
   const { setInspiration } = React.useContext(InspirationContext);
   const [inspirationData, setInspirationData] = React.useState("");
+  const [counter, setCounter] = React.useState(0);
 
   useEffect(() => {
     const getData = async () => {
-      const result = await axios.get(`api/generate-inspiration`);
+      const result = await axios.get("api/generateinspiration");
       console.log(result);
       setInspirationData(result.data);
     };
     getData();
   }, []);
+
+  function getInspiration() {
+    const getData = async () => {
+      const result = await axios.get("api/generateinspiration");
+      console.log(result);
+      setInspirationData((prev) => (prev = result.data));
+      setCounter((prev) => (prev = prev + 1));
+      console.log(counter);
+    };
+    getData();
+  }
 
   return (
     <div className="modal">
@@ -27,9 +39,19 @@ const Inspiration = () => {
           &times;
         </span>
         <div className="modal-content-inspiration">
-          <h2>Seeking Inspiration?</h2>
+          <h2>Inspirational Prompts</h2>
           <p>{inspirationData}</p>
-          <button className="landing-top-button ">Inspire Me</button>
+
+          {counter < 10 ? (
+            <button className="landing-top-button" onClick={getInspiration}>
+              Inspire Me
+            </button>
+          ) : (
+            <h4>
+              Now it's time to act on your inspiration. Please wait and try
+              again in 10 minutes.
+            </h4>
+          )}
         </div>
       </div>
     </div>

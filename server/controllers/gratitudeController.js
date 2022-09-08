@@ -274,18 +274,16 @@ const deleteGratitude = async (req, res) => {
 // @access  Public
 
 const generateInspiration = async (req, res) => {
-  axios({
-    method: "GET",
-    url: "https://gratitude-questions.p.rapidapi.com/question",
-    headers: {
-      "X-RapidAPI-Key": RAPID_API_KEY_GRATITUDES,
-      "X-RapidAPI-Host": "gratitude-questions.p.rapidapi.com",
-    },
-  });
-
   try {
-    const data = res.json();
-    res.send(data);
+    const data = await axios({
+      method: "GET",
+      url: "https://gratitude-questions.p.rapidapi.com/question",
+      headers: {
+        "X-RapidAPI-Key": process.env.RAPID_API_KEY_GRATITUDES,
+        "X-RapidAPI-Host": "gratitude-questions.p.rapidapi.com",
+      },
+    });
+    res.send(data.data.question);
   } catch (error) {
     console.log(error);
   }
