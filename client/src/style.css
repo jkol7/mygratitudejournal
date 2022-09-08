@@ -46,8 +46,7 @@ ul {
 .main-lander-inner-bg {
   height: 600px;
   width: 100%;
-  background: url("../public/gratbackground-wave.jpg") no-repeat center center
-    fixed;
+  background: url("../public/gratbackground-wave.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -81,6 +80,31 @@ ul {
 .main-lander-top-right img {
   height: 550px;
   width: 611px;
+}
+
+.main-lander-benefits {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 2%;
+  min-height: 400px;
+}
+
+.main-lander-benefits .benefit-container {
+  display: flex;
+  justify-content: space-between;
+  width: 65%;
+}
+
+.benefit-container img {
+  height: 200px;
+  width: 200px;
+}
+
+.benefit-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .full-title-container {

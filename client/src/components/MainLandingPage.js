@@ -16,6 +16,25 @@ function MainLandingPage() {
           <img src="landingpage-right.png" />
         </div>
       </div>
+      <div className="main-lander-benefits">
+        <div className="benefit-container">
+          <div className="benefit-text-container">
+            <img src="mentalhealth.svg" />
+            <h4>Improve mental health</h4>
+            <p>Gratitudes can improve mental health.</p>
+          </div>
+          <div className="benefit-text-container">
+            <img src="relationships.svg" />
+            <h4>Build stronger relationships</h4>
+            <p>Gratitudes can improve relationships.</p>
+          </div>
+          <div className="benefit-text-container">
+            <img src="sleep.svg" />
+            <h4>Get quality sleep</h4>
+            <p>Gratitudes can help you sleep better</p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
