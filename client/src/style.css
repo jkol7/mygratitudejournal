@@ -12,7 +12,7 @@ body {
 
 p {
   font-family: "Raleway";
-  font-size: 15px;
+  font-size: 16px;
   line-height: 150%;
 }
 
@@ -28,6 +28,26 @@ p {
 
 ul {
   list-style: none;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+footer {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  align-items: center;
+  color: black;
+  font-weight: 300;
+  background-color: #fbf3f0;
+  padding-right: 50px;
 }
 
 /* Main landing page styles */
@@ -61,10 +81,6 @@ ul {
   width: 40%;
   height: 600px;
   margin-left: 8%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .main-lander-top-right {
@@ -85,6 +101,7 @@ ul {
 .main-lander-benefits {
   width: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   padding: 2% 0;
   min-height: 400px;
@@ -97,6 +114,7 @@ ul {
   width: 100%;
   padding: 0 5%;
   flex-basis: 100%;
+  text-align: center;
 }
 
 .benefit-container img {
@@ -104,23 +122,58 @@ ul {
   width: 200px;
 }
 
-.benefit-text-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.benefit-text-container h4 {
+.benefit-container h4 {
   color: #481780;
   font-size: 22px;
   margin: 15px 0;
 }
 
-.benefit-text-container p {
+.benefit-container p {
   color: #0c0c0c;
-  font-size: 16px;
   margin-top: 5px;
+}
+
+.prompt-landing-section {
+  padding: 100px 50px;
+  text-align: center;
+}
+
+.prompt-landing-section h4 {
+  color: #481780;
+  letter-spacing: 2px;
+}
+
+.typewriter {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: 0.15em solid purple; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: 0.15em; /* Adjust as needed */
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  color: #0c0c0c;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 35%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  40% {
+    border-color: purple;
+  }
 }
 
 .full-title-container {
@@ -211,6 +264,23 @@ ul {
   border: 2px solid white;
 }
 
+.landing-bottom-button {
+  background-color: #882df0;
+  color: white;
+  padding: 15px 40px;
+  border: 2px solid #882df0;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  filter: drop-shadow(0 0 0.15rem rgb(180, 180, 180));
+  cursor: pointer;
+}
+
+.landing-bottom-button:hover {
+  color: #882df0;
+  background-color: white;
+  border: 2px solid #882df0;
+}
 /* Shorter nav styling */
 
 .nav-wrap {
@@ -581,16 +651,24 @@ button {
     margin: 0;
   }
 
-  .main-lander-benefits {
+  .main-lander-benefits .benefit-container {
     min-height: 600px;
     max-height: 1100px;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
   }
 
-  .main-lander-benefits .benefit-container {
+  footer {
     flex-direction: column;
     justify-content: center;
-    width: 100%;
     align-items: center;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+  }
+  footer p {
+    font-size: 15px;
   }
 }
 
@@ -724,6 +802,39 @@ button {
     text-align: center;
   }
 
+  .typewriter {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: 0.15em solid purple; /* The typwriter cursor */
+    white-space: pre-line; /* Keeps the content on a single line */
+    word-wrap: normal;
+    margin: 0; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: 0.15em; /* Adjust as needed */
+    animation: none;
+    color: #0c0c0c;
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+  /* The typing effect */
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    20% {
+      border-color: purple;
+    }
+  }
   /* Dashboard mobile styling */
 
   .abovetitle {
