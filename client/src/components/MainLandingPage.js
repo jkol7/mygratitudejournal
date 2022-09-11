@@ -18,7 +18,7 @@ function MainLandingPage() {
       </div>
       <div className="main-lander-benefits flex-col">
         <div className="benefit-container">
-          <div className="flex-col">
+          <div className="flex-col flex-evenly">
             <img src="mentalhealth.svg" />
             <h4>Improve mental health</h4>
             <p>
@@ -26,15 +26,15 @@ function MainLandingPage() {
               well-being and less anxiety.
             </p>
           </div>
-          <div className="flex-col">
+          <div className="flex-col flex-evenly">
             <img src="relationships.svg" />
             <h4>Build strong relationships</h4>
             <p>
-              Studies have demonstraed gratitude can increase relationship
+              Studies have demonstrated gratitude can increase relationship
               satisfaction.
             </p>
           </div>
-          <div className="flex-col">
+          <div className="flex-col flex-evenly">
             <img src="sleep.svg" />
             <h4>Sleep better and longer</h4>
             <p>

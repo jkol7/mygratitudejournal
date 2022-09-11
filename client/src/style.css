@@ -37,6 +37,10 @@ ul {
   justify-content: center;
 }
 
+.flex-evenly {
+  flex: 1 1 0px;
+}
+
 footer {
   width: 100%;
   min-height: 50px;
@@ -103,17 +107,15 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 2% 8%;
+  padding: 2% 10%;
   min-height: 400px;
 }
 
 .main-lander-benefits .benefit-container {
   display: flex;
-  justify-content: space-between;
   gap: 5%;
   width: 100%;
-  padding: 0 5%;
-  flex-basis: 100%;
+  padding: 0;
   text-align: center;
 }
 
@@ -134,7 +136,8 @@ footer {
 }
 
 .prompt-landing-section {
-  padding: 70px 8%;
+  width: 100%;
+  padding: 70px 0;
   text-align: center;
 }
 
